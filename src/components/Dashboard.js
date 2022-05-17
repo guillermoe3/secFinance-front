@@ -10,21 +10,14 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
-import Chart from './Chart';
-import Deposits from './Deposits';
-import Orders from './Orders';
 import Button from '@mui/material/Button'
 import {AccountCircle} from "@material-ui/icons"
 import ContainerG from "./ContainerG"
-import Vacio from "./Vacio"
 
 
 function Copyright(props) {
@@ -94,7 +87,7 @@ const mdTheme = createTheme({
   }}
 });
 
-function DashboardContent() {
+function DashboardContent( {component}) {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -155,7 +148,8 @@ function DashboardContent() {
               alignItems: 'center',
               justifyContent: 'flex-end',
               px: [1],
-              backgroundColor: 'gray',
+              backgroundColor: "#262629",
+              color: "#4154FF"
             }}
           >
             <IconButton onClick={toggleDrawer}>
@@ -163,23 +157,48 @@ function DashboardContent() {
             </IconButton>
           </Toolbar>
           
-          <Divider />User
+          <Divider />
+          <Typography
+              component="h5"
+              variant="h6"
+              sx={{              backgroundColor: "#262629",
+              color: "#4154FF"}}            
+              >
+          User
+          </Typography>
           <List sx={{
-            backgroundColor: 'gray',
+                          backgroundColor: "#262629",
+                          color: "#4154FF"
           }}>{mainListItems}</List>
-          <Divider /> Admin
-          <List>{secondaryListItems}</List>
+          <Divider /> 
+          
+          <Typography
+              component="h5"
+              variant="h6"
+              sx={{              backgroundColor: "#262629",
+              color: "#4154FF"}}            
+              >
+          Admin
+          </Typography>
+          <List sx={{              
+            backgroundColor: "#262629",
+              color: "#4154FF"}}>
+                {secondaryListItems}</List>
         </Drawer>
+        
         <Box
           component="main"
           
           sx={{
+           
+            //container color
             backgroundColor: (theme) =>
               theme.palette.mode === 'light'
                 ? theme.palette.grey[500]
                 : theme.palette.grey[900],
             flexGrow: 1,
             height: '100vh',
+            
             overflow: 'auto',
           }}
         >
@@ -187,19 +206,21 @@ function DashboardContent() {
           <Toolbar />
 
           
-          <ContainerG/>
+          
+          { component }
 
 
           
         </Box>
         
       </Box>
-      <Copyright sx={{ pt: 4 }} />
+      <Copyright sx={{ pt: 4, backgroundColor: "#262629",
+              color: "#4154FF"}} />
       
     </ThemeProvider>
   );
 }
 
-export default function Dashboard() {
-  return <DashboardContent />;
+export default function Dashboard( {component} ) {
+  return <DashboardContent component={component} />;
 }

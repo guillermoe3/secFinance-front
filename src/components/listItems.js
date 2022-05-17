@@ -9,66 +9,90 @@ import CampaignIcon from '@mui/icons-material/Campaign';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import {Link} from "react-router-dom"
+import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+
+
+const customTheme = createTheme({
+  textDecoration: 'none',
+});
 
 export const mainListItems = (
   <div>
+   <Link to="/">
     <ListItem button>
     
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       
-      <ListItemText primary="Dashboard" />
+      <ListItemText primary="Home" />
+      
     </ListItem>
+    </Link>
 
 
-    <ListItem button>
-      <ListItemIcon>
-        <ManageSearchIcon />
-      </ListItemIcon>
-      <ListItemText primary="Investigaciones" />
-    </ListItem>
+    
+    <Link to="/investigation">
+        <ListItem button>
+        <ListItemIcon>
+          <ManageSearchIcon />
+        </ListItemIcon>
+          <ListItemText primary="Investigaciones" />
+          </ListItem>
+      </Link>
+
+      <Link to="/alerts">
     <ListItem button>
       <ListItemIcon>
         <CampaignIcon />
       </ListItemIcon>
+      
       <ListItemText primary="Alertas" />
+     
     </ListItem>
+    </Link>
+
     <ListItem button>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
-      <ListItemText primary="Log-In" />
+      
+      <ListItemText primary="Mi Empresa" />
+     
     </ListItem>
     <ListItem button>
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
-      <ListItemText primary="Integrations" />
+      <ListItemText primary="Menu4" />
     </ListItem>
   </div>
 );
 
 export const secondaryListItems = (
   <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
+    <ListSubheader inset sx={{backgroundColor: "#262629",
+              color: "#4154FF", 
+            }}            
+              >title: admin functions</ListSubheader>
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Current month" />
+      <ListItemText primary="manage alerts" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Last quarter" />
+      <ListItemText primary="manage users" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
+      <ListItemText primary="manage business" />
     </ListItem>
   </div>
 );

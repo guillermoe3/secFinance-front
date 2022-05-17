@@ -1,29 +1,36 @@
-import Topbar from "./components/TopBar_old"
-import {Button} from "@material-ui/core/"
+
 import Dashboard from "./components/Dashboard"
-import Vacio from "./components/Vacio"
-import Home from "./components/Home"
+
+import ContainerG from "./components/ContainerG"
+
+import InvestigationContainer from "./components/investigations/InvestigationContainer"
+import AlertsContainer from "./components/alerts/AlertsContainer"
+import {BrowserRouter, Routes, Route} from "react-router-dom"
+import NotFound from "./components/default/NotFound"
+import Home from "./components/default/Home"
+import Analysis from "./components/analysis/Analysis"
 
 
-/* 
-      <Button>
-        Este es un botonnn
 
-      </Button>
-      <Dashboard/>
-
-            <Home/>
-      
-      <Vacio/>
-*/
-{
-  console.log("hola")
-}
 function App() {
+  //<Dashboard component={<InvestigationContainer/>}/>
   return (
     <div>
+      <BrowserRouter>
 
-      <Dashboard/>
+      
+        <Routes>
+          <Route path="/" element={<Dashboard component={<Home/>}/>}/>
+           <Route path="/investigation" element={<Dashboard component={<InvestigationContainer/>}/>}/>
+           <Route path="/investigation/:id/analysis" element={<Dashboard component={<Analysis/>}/>}/>
+           <Route path="/alerts" element={<Dashboard component={<AlertsContainer/>}/>}/>
+           <Route path="*" element={<NotFound/>}/>
+
+        </Routes>
+
+      </BrowserRouter>
+
+      
 
     </div>
   );
