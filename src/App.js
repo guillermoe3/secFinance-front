@@ -9,6 +9,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom"
 import NotFound from "./components/default/NotFound"
 import Home from "./components/default/Home"
 import Analysis from "./components/analysis/Analysis"
+import Alert from "./components/alerts/Alert"
 
 
 
@@ -24,6 +25,7 @@ function App() {
            <Route path="/investigation" element={<Dashboard component={<InvestigationContainer/>}/>}/>
            <Route path="/investigation/:id/analysis" element={<Dashboard component={<Analysis/>}/>}/>
            <Route path="/alerts" element={<Dashboard component={<AlertsContainer/>}/>}/>
+           <Route path="/alerts/:id" element={<Dashboard component={<Alert/>}/>}/>
            <Route path="*" element={<NotFound/>}/>
 
         </Routes>
