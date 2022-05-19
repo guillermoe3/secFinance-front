@@ -16,7 +16,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import Button from '@mui/material/Button'
-import {AccountCircle} from "@material-ui/icons"
+import { AccountCircle } from "@material-ui/icons"
 import ContainerG from "./ContainerG"
 
 
@@ -79,15 +79,16 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const mdTheme = createTheme({  
+const mdTheme = createTheme({
   palette: {
     primary: {
       main: '#262629',
       contrastText: '#4154FF',
-  }}
+    }
+  }
 });
 
-function DashboardContent( {component}) {
+function DashboardContent({ component }) {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -130,18 +131,22 @@ function DashboardContent( {component}) {
               </Badge>
             </IconButton>
             <Button color="inherit">
-            Login
+              Login
             </Button>
             <Button color="inherit">
-            Register
+              Register
             </Button>
             <IconButton aria-label="account" color="inherit">
-                <AccountCircle/>
+              <AccountCircle />
             </IconButton>
           </Toolbar>
         </AppBar>
-      
-        <Drawer variant="permanent" open={open}>
+
+        <Drawer variant="permanent" open={open} PaperProps={{
+          sx: {
+            backgroundColor: "#262629",
+          }
+        }}>
           <Toolbar
             sx={{
               display: 'flex',
@@ -156,41 +161,46 @@ function DashboardContent( {component}) {
               <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
-          
+
           <Divider />
           <Typography
-              component="h5"
-              variant="h6"
-              sx={{              backgroundColor: "#262629",
-              color: "#4154FF"}}            
-              >
-          User
+            component="h5"
+            variant="h6"
+            sx={{
+              backgroundColor: "#262629",
+              color: "#4154FF"
+            }}
+          >
+            User
           </Typography>
           <List sx={{
-                          backgroundColor: "#262629",
-                          color: "#4154FF"
-          }}>{mainListItems}</List>
-          <Divider /> 
-          
-          <Typography
-              component="h5"
-              variant="h6"
-              sx={{              backgroundColor: "#262629",
-              color: "#4154FF"}}            
-              >
-          Admin
-          </Typography>
-          <List sx={{              
             backgroundColor: "#262629",
-              color: "#4154FF"}}>
-                {secondaryListItems}</List>
+            color: "#4154FF"
+          }}>{mainListItems}</List>
+          <Divider />
+
+          <Typography
+            component="h5"
+            variant="h6"
+            sx={{
+              backgroundColor: "#262629",
+              color: "#4154FF"
+            }}
+          >
+            Admin
+          </Typography>
+          <List sx={{
+            backgroundColor: "#262629",
+            color: "#4154FF"
+          }}>
+            {secondaryListItems}</List>
         </Drawer>
-        
+
         <Box
           component="main"
-          
+
           sx={{
-           
+
             //container color
             backgroundColor: (theme) =>
               theme.palette.mode === 'light'
@@ -198,29 +208,31 @@ function DashboardContent( {component}) {
                 : theme.palette.grey[900],
             flexGrow: 1,
             height: '100vh',
-            
+
             overflow: 'auto',
           }}
         >
-          
+
           <Toolbar />
 
-          
-          
-          { component }
 
 
-          
+          {component}
+
+
+
         </Box>
-        
+
       </Box>
-      <Copyright sx={{ pt: 4, backgroundColor: "#262629",
-              color: "#4154FF"}} />
-      
+      <Copyright sx={{
+        pt: 4, backgroundColor: "#262629",
+        color: "#4154FF"
+      }} />
+
     </ThemeProvider>
   );
 }
 
-export default function Dashboard( {component} ) {
+export default function Dashboard({ component }) {
   return <DashboardContent component={component} />;
 }
