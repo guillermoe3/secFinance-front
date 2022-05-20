@@ -17,21 +17,11 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import Button from '@mui/material/Button'
 import { AccountCircle } from "@material-ui/icons"
-import ContainerG from "./ContainerG"
+import Copyright from "./default/Copyright"
 
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Sec Finance
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+
+//copyright here
 
 const drawerWidth = 240;
 
@@ -226,7 +216,7 @@ function DashboardContent({ component }) {
       </Box>
       <Copyright sx={{
         pt: 4, backgroundColor: "#262629",
-        color: "#4154FF"
+        color: "#4154FF", position: "fixed", left: 0, bottom: 0, right: 0,
       }} />
 
     </ThemeProvider>

@@ -15,11 +15,12 @@ import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 
 const customTheme = createTheme({
   textDecoration: 'none',
+  
 });
 
 export const mainListItems = (
   <div>
-   <Link to="/">
+   <Link to="/home" style={{ textDecoration: 'none', color: "#4154FF"}}>
     <ListItem button>
     
       <ListItemIcon>
@@ -33,7 +34,7 @@ export const mainListItems = (
 
 
     
-    <Link to="/investigation">
+    <Link to="/investigation" style={{ textDecoration: 'none', color: "#4154FF"}}>
         <ListItem button>
         <ListItemIcon>
           <ManageSearchIcon />
@@ -42,7 +43,7 @@ export const mainListItems = (
           </ListItem>
       </Link>
 
-      <Link to="/alerts">
+      <Link to="/alerts" style={{ textDecoration: 'none', color: "#4154FF"}}>
     <ListItem button>
       <ListItemIcon>
         <CampaignIcon />
