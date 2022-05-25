@@ -23,7 +23,7 @@ function InvestigationList(){
 
     return (
         <div>
-             Listado de investigaciones
+             Mis investigaciones
             <ul>
 
             {list ? list.map( (inv)=><ul key={inv.id_investigation}> 

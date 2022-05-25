@@ -25,7 +25,7 @@ function Landing({ component }) {
 
     return (
         <ThemeProvider theme={mdTheme}>
-            <Box sx={{ display: 'flex' }}>
+            <Box sx={{ display: 'flex'}}>
                 <CssBaseline />
                 <AppBar position="absolute">
                     <Toolbar
@@ -60,12 +60,12 @@ function Landing({ component }) {
                     </Toolbar>
                 </AppBar>
             </Box>
-            <Container maxWidth="lg">
-                <Box sx={{ m: 10 }}>
+            <Box sx={{height: '100%'}} >
+                <Box sx={{height: '100%'}} >
                     {component}
                 </Box>
 
-            </Container>
+            </Box>
 
             <Copyright sx={{
                 pt: 4, backgroundColor: "#262629",

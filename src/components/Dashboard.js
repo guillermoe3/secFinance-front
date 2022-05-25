@@ -194,7 +194,7 @@ function DashboardContent({ component }) {
             //container color
             backgroundColor: (theme) =>
               theme.palette.mode === 'light'
-                ? theme.palette.grey[500]
+                ? theme.palette.grey[200]
                 : theme.palette.grey[900],
             flexGrow: 1,
             height: '100vh',

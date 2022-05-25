@@ -1,4 +1,4 @@
-import Chart from "../Chart"
+
 import SimpleBar from "../charts/SimpleBar"
 import Pie from "../charts/Pie"
 import Container from '@mui/material/Container'
@@ -9,7 +9,7 @@ function Home() {
 
         <div>
 
-            <Container maxWidth="md">
+            <Container maxWidth="md" sx={{marginBottom: "10vh"}}>
                 <p>Estadisticas</p>
                 <Box sx={{m: 2}}>
                     <SimpleBar />
@@ -24,7 +24,7 @@ function Home() {
             </Container>
 
 
-            <Chart />
+            
         </div>
     )
 }

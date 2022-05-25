@@ -48,12 +48,11 @@ export const mainListItems = (
       <ListItemIcon>
         <CampaignIcon />
       </ListItemIcon>
-      
       <ListItemText primary="Alertas" />
-     
     </ListItem>
     </Link>
 
+    <Link to="/business" style={{ textDecoration: 'none', color: "#4154FF"}}> 
     <ListItem button>
       <ListItemIcon>
         <BarChartIcon />
@@ -62,12 +61,16 @@ export const mainListItems = (
       <ListItemText primary="Mi Empresa" />
      
     </ListItem>
+    </Link>
+
+    <Link to="/alerts" style={{ textDecoration: 'none', color: "#4154FF"}}>
     <ListItem button>
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
       <ListItemText primary="Menu4" />
     </ListItem>
+    </Link>
   </div>
 );
 
@@ -77,23 +80,31 @@ export const secondaryListItems = (
               color: "#4154FF", 
             }}            
               >title: admin functions</ListSubheader>
+    <Link to="/admin/alerts" style={{ textDecoration: 'none', color: "#4154FF"}}>
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="manage alerts" />
     </ListItem>
+    </Link>
+
+    <Link to="/admin/users" style={{ textDecoration: 'none', color: "#4154FF"}}>
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="manage users" />
     </ListItem>
+    </Link>
+
+    <Link to="/admin/business" style={{ textDecoration: 'none', color: "#4154FF"}}>
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="manage business" />
     </ListItem>
+    </Link>
   </div>
 );

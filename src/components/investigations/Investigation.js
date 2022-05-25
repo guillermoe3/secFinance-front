@@ -45,7 +45,7 @@ function Investigation() {
       </Grid>
       <Grid>
         <Button variant="contained" color="primary">
-          <Link style={{textDecoration:"none"}} to={`/investigation/1/analysis`}>Crear Investigación</Link></Button>
+          <Link style={{textDecoration: 'none', color: "#4154FF"}} to={`/investigation/1/analysis`}>Crear Investigación</Link></Button>
       </Grid>
     </Container>
 
