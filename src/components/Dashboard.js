@@ -18,6 +18,7 @@ import { mainListItems, secondaryListItems } from './listItems';
 import Button from '@mui/material/Button'
 import { AccountCircle } from "@material-ui/icons"
 import Copyright from "./default/Copyright"
+import {Tooltip, Menu, MenuItem, MenuList} from "@mui/material"
 
 
 
@@ -84,6 +85,41 @@ function DashboardContent({ component }) {
     setOpen(!open);
   };
 
+
+  //User Menu
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const settings = [
+  <Link to="/profile">Profile</Link>,
+  <Link to="/logout">Logout</Link>];
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+
+  /* precambios user menu
+  
+      <IconButton aria-label="account" color="inherit"/>
+                  <AccountCircle />
+                </IconButton>
+
+
+
+
+                {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))}
+
+
+
+              <Link to="/profile">
+  */
+
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -126,9 +162,49 @@ function DashboardContent({ component }) {
             <Button color="inherit">
               Register
             </Button>
-            <IconButton aria-label="account" color="inherit">
-              <AccountCircle />
-            </IconButton>
+
+            <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings"> 
+                <IconButton aria-label="account" color="inherit" onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <AccountCircle />
+                </IconButton>
+              </Tooltip>
+              <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              
+             
+              <MenuItem component={Link} to="/profile" onClick={handleCloseUserMenu}>
+                   Profile
+                </MenuItem>
+                
+
+                <Typography textAlign="center"></Typography>
+              
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Link to="/logout">
+                  <Typography textAlign="center">Logout</Typography>
+                  </Link>
+                </MenuItem>
+                
+            </Menu>
+
+
+
+            </Box>
           </Toolbar>
         </AppBar>
 
