@@ -1,9 +1,10 @@
-import {Link, Typography} from '@mui/material';
+import {Link, Typography, Box} from '@mui/material';
 
 
 
 function Copyright(props) {
     return (
+      
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
         {'Copyright © '}
         <Link color="inherit" href="https://secfinance.com/">
@@ -12,6 +13,7 @@ function Copyright(props) {
         {new Date().getFullYear()}
         {'.'}
       </Typography>
+      
     );
   }
 

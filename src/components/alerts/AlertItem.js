@@ -12,7 +12,11 @@ function Alert(props) {
     return (
 
         <Container maxWidth="lg">
-            <Card sx={{m: 2}}>
+            <Card variant="outlined" sx={{width: "100%",m: 2, 
+                border: "0.1px solid", 
+                borderColor: "white",
+                boxShadow: 4, 
+                backgroundColor: "white"}}>
 
                 <CardContent>
                     <Typography sx={{ fontSize: 14 }} color="text.primary" gutterBottom>

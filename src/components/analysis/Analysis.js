@@ -32,7 +32,16 @@ function Analysis() {
     // {data ? data.map((check)=> <Check /> ) : <h2>Cargando...</h2>}
     return (
 
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" sx={{ 
+            marginTop: 1,
+            border: "0.5px solid",
+            padding: "10px",
+            boxShadow: 5, 
+            backgroundColor: "white", 
+            borderColor: 'grey.200',
+            borderRadius: 3, 
+            height: "100%",
+          }}>
             <h2> Investigación </h2>
             <p>Lorem ipsum dolor sit amet, consect</p>
 
