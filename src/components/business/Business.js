@@ -38,7 +38,11 @@ function Business() {
         borderRadius: 3
       }}>
 
-            <h2>Mis compañeros</h2>
+<Typography variant="h4" sx={{
+        fontWeight: "bold",
+        color: "#202980",
+        marginBottom:4
+      }}> Mis compañeros</Typography>
             <Box sx={{
                 width: "40vw",
                 marginBottom: "5vh"

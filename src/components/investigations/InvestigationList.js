@@ -1,5 +1,5 @@
-import {useState, useEffect, isValidElement} from "react"
-import {Typography, Box} from "@mui/material"
+import { useState, useEffect, isValidElement } from "react"
+import { Typography, Box } from "@mui/material"
 
 /*             
             
@@ -24,19 +24,19 @@ import {Typography, Box} from "@mui/material"
             
             */
 
-function InvestigationList(){
+function InvestigationList() {
 
     const [list, setList] = useState("");
 
     const url = "http://localhost:3004/investigations";
-    
+
     const fetchApi = async () => {
-      const response = await fetch(url);
-      const data = await response.json();
-      setList(data);
-      console.log(data)
+        const response = await fetch(url);
+        const data = await response.json();
+        setList(data);
+        console.log(data)
     }
-    useEffect(()=>{fetchApi()},[])
+    useEffect(() => { fetchApi() }, [])
 
 
 
@@ -44,26 +44,30 @@ function InvestigationList(){
 
     return (
         <div>
-             Mis investigaciones
-             {console.log(list)}
+            <Typography variant="h5" sx={{
+                fontWeight: "bold",
+                color: "#202980",
+                marginBottom: 4
+            }}>Mis investigaciones</Typography>
+            {console.log(list)}
 
-             <ul>
+            <ul>
 
-{list ? list.map( (inv)=><ul key={inv.id_investigation}> 
+                {list ? list.map((inv) => <ul key={inv.id_investigation}>
 
-        <li>
-        Fecha de creación: {inv.date_creation}
-        </li>
-        <li>Descripción: {inv.description} 
-        </li>
+                    <li>
+                        Fecha de creación: {inv.date_creation}
+                    </li>
+                    <li>Descripción: {inv.description}
+                    </li>
 
 
-</ul> ) : "No hay datos"}
+                </ul>) : "No hay datos"}
 
-    
-</ul> 
 
- 
+            </ul>
+
+
         </div>
     )
 }

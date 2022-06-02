@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box';
-import { FormControl, Input, InputLabel, FormHelperText, TextField, Container, Grid } from '@mui/material';
+import { FormControl, Input, InputLabel, FormHelperText, TextField, Container, Grid, Typography} from '@mui/material';
 import { useState } from "react"
 import {Link} from "react-router-dom"
 
@@ -19,8 +19,11 @@ function Investigation() {
 
     <Container maxWidth="lg">
 
-      <h2>Crear Investigación</h2>
-
+      <Typography variant="h4" sx={{
+        fontWeight: "bold",
+        color: "#202980",
+        marginBottom:4
+      }}>Crear Investigación</Typography>
 
       <Grid item xs={8}>
 

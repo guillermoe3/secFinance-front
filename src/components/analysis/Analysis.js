@@ -1,5 +1,5 @@
 import Button from '@mui/material/Button';
-import { FormControl, Input, InputLabel, FormHelperText, TextField, Container, Grid, Box, styled } from '@mui/material';
+import { FormControl, Input, InputLabel, FormHelperText, TextField, Container, Grid, Box, styled, Typography} from '@mui/material';
 import { useState, useEffect } from "react"
 import Check from "./Check"
 
@@ -42,7 +42,12 @@ function Analysis() {
             borderRadius: 3, 
             height: "100%",
           }}>
-            <h2> Investigación </h2>
+            <Typography variant="h4" sx={{
+        fontWeight: "bold",
+        color: "#202980",
+        marginTop:4,
+        marginBottom:4
+      }}> Investigación </Typography>
             <p>Lorem ipsum dolor sit amet, consect</p>
 
 

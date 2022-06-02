@@ -1,5 +1,5 @@
 import AlertList from "./AlertList"
-import Container from '@mui/material/Container'
+import {Container, Typography} from '@mui/material'
 
 
 function AlertsContainer () {
@@ -15,7 +15,11 @@ function AlertsContainer () {
                 borderRadius: 3, 
                 height: "100%"
             }}>
-                <h2>Listado de Alertas</h2>
+                <Typography variant="h4" sx={{
+                fontWeight: "bold",
+                color: "#202980",
+                marginBottom: 4
+            }}>Listado de Alertas</Typography>
                  <AlertList/>
           
               

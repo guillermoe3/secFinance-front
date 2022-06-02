@@ -18,7 +18,7 @@ function Check({ value }) {
       console.log(data)
     }
 
-    useEffect(() => {fetchApi()},[])
+    //useEffect(() => {fetchApi()},[])
 
     return (
         <Container maxWidth="lg">
@@ -27,8 +27,8 @@ function Check({ value }) {
         m: 3, 
         border: '0.5px dashed grey', 
         boxShadow: "0 5px 10px 0 rgba(0, 0, 0, 0.3)"}} >
-            <Box> IOC {value.ioc} </Box>
-            <Box> Descripción {value.description} </Box>
+            <Box> IOC: {value.ioc} </Box>
+            <Box> Descripción: {value.description} </Box>
             <Box> Result: {analysis ? analysis : "Cargando..."}</Box>
 
             <Box textAlign="right">

@@ -234,7 +234,8 @@ function DashboardContent({ component }) {
             variant="h6"
             sx={{
               backgroundColor: "#262629",
-              color: "#4154FF"
+              color: "#4154FF",
+              marginLeft:1,
             }}
           >
             User
@@ -250,7 +251,8 @@ function DashboardContent({ component }) {
             variant="h6"
             sx={{
               backgroundColor: "#262629",
-              color: "#4154FF"
+              color: "#4154FF", 
+              marginLeft:1,
             }}
           >
             Admin

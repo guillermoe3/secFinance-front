@@ -20,7 +20,11 @@ function BusinessManager() {
         }}>
 
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', m: 4 }}>
-                <Typography variant="h5" sx={{ m: 2 }}>Crear nueva Empresa</Typography>
+
+                <Typography variant="h4" sx={{
+                    fontWeight: "bold",
+                    color: "#202980", m: 2
+                }}>Crear nueva Empresa</Typography>
                 <Box>
                     <FormControl>
                         <InputLabel htmlFor="firstname"> Nombre </InputLabel>
@@ -47,8 +51,14 @@ function BusinessManager() {
                 </Box>
 
             </Box>
+           
+           
             <Box sx={{ width: "100%" }}>
-                Listado de Empresas
+                <Typography variant="h4" sx={{
+                    fontWeight: "bold",
+                    color: "#202980", marginBottom: 2
+                }}>
+                    Listado de Empresas</Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'row', width: "80%", justifyContent: 'space-between' }}>
                     <Typography variant="h6"> Banco Galicia</Typography>
                     <Typography variant="h6"> Grupo Financiero Galicia S.A </Typography>
