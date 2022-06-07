@@ -81,6 +81,7 @@ function Analysis() {
             {console.log(data)}
 
             {data ? data.map((dato, i) => {
+                
                 return <Check key={i} value={dato} />
             }) : <h2>Cargando...</h2>}
 
