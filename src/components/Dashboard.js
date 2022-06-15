@@ -18,8 +18,12 @@ import { mainListItems, secondaryListItems } from './listItems';
 import Button from '@mui/material/Button'
 import { AccountCircle } from "@material-ui/icons"
 import Copyright from "./default/Copyright"
-import {Tooltip, Menu, MenuItem, MenuList} from "@mui/material"
+import {Tooltip, Menu, MenuItem, MenuList, ListItem, ListItemIcon, ListItemText} from "@mui/material"
+import AssignmentIcon from '@mui/icons-material/Assignment';
 
+import {useState, useContext} from "react"
+import UserContext from "../context/UserContext"
+import {useNavigate} from "react-router-dom"
 
 
 //copyright here
@@ -118,7 +122,30 @@ function DashboardContent({ component }) {
 
 
               <Link to="/profile">
+
+
+
+              menu login register
+
+
   */
+
+  //Context User
+
+  const navigate = useNavigate();
+
+  const {getUser, isLogged, logout, getRole} = useContext(UserContext);
+  let result = isLogged();
+  let user = getUser();
+  let role = getRole();
+
+  const logoutUser = () => {
+    logout();
+    navigate("/");
+    
+  }
+  
+ 
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -156,12 +183,25 @@ function DashboardContent({ component }) {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
+            
+            {console.log(result)}
+            {result ? 
+              
+              <Button color="primary" onClick={logoutUser}>
+                <Link to="/" style={{ textDecoration: 'none', color: "#4154FF"}}>Logout</Link>
+            </Button>
+            
+               : 
+            <div>
             <Button color="inherit">
               Login
             </Button>
             <Button color="inherit">
               Register
             </Button>
+            </div>}
+
+ 
 
             <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings"> 
@@ -246,6 +286,9 @@ function DashboardContent({ component }) {
           }}>{mainListItems}</List>
           <Divider />
 
+          {console.log(role)}
+          {role == "admin" ? 
+          <div> 
           <Typography
             component="h5"
             variant="h6"
@@ -255,6 +298,7 @@ function DashboardContent({ component }) {
               marginLeft:1,
             }}
           >
+  
             Admin
           </Typography>
           <List sx={{
@@ -262,6 +306,21 @@ function DashboardContent({ component }) {
             color: "#4154FF"
           }}>
             {secondaryListItems}</List>
+            </div>
+
+            : null
+            }
+            {role == "investigador" ? 
+                <Link to="/admin/alerts" style={{ textDecoration: 'none', color: "#4154FF"}}>
+                <ListItem button>
+                  <ListItemIcon>
+                    <AssignmentIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="manage alerts" />
+                </ListItem>
+                </Link>
+                : null}
+
         </Drawer>
 
         <Box

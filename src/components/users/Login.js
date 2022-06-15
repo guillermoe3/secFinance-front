@@ -1,8 +1,16 @@
 import { Container, Input, Button, Box, Grid, Typography, FormControl, InputLabel, Checkbox, FormControlLabel} from '@mui/material'
 import { Link, useNavigate} from "react-router-dom";
-import {useState} from "react"
+import {useState, useContext} from "react"
+
+import UserContext from "../../context/UserContext"
+
 
 function Login() {
+    
+    
+     //Context User
+     const {login} = useContext(UserContext);
+
 
     const navigate = useNavigate();
 
@@ -18,7 +26,7 @@ function Login() {
     const {email, password} = inputs;
 
     const onChange = (e) => {
-        console.log(e.target.value)
+        //console.log(e.target.value)
         setInputs(
             {...inputs, 
             [e.target.name] : e.target.value})
@@ -52,6 +60,7 @@ function Login() {
             const response = await fetch(url, body)
            const data = await response.json();
            console.log(data);
+           login(data);
            if (data.accessToken) { 
             setInputs({
                 email: "",
@@ -62,7 +71,7 @@ function Login() {
                    setMsg("");
                    navigate("/home");
     
-               }, 1500)
+               }, 500)
                setLoading(true);
 
            } else setMsg({msg:"Usuario no habilitado o incorrecto"})

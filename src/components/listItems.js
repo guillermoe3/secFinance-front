@@ -106,5 +106,14 @@ export const secondaryListItems = (
       <ListItemText primary="manage business" />
     </ListItem>
     </Link>
+
+    <Link to="/admin/business" style={{ textDecoration: 'none', color: "#4154FF"}}>
+    <ListItem button>
+      <ListItemIcon>
+        <AssignmentIcon />
+      </ListItemIcon>
+      <ListItemText primary="bitacora" />
+    </ListItem>
+    </Link>
   </div>
 );
