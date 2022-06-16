@@ -36,7 +36,7 @@ const Bitacora = () => {
    
 
     
-    const options = {}
+    
 
     const [events, setEvents] = useState([])
 
@@ -80,7 +80,7 @@ const Bitacora = () => {
                 title={"Bitacora"}
                 data={events}
                 columns={columns}
-                options={options}/>
+                />
           
         </Container>
 

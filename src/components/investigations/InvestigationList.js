@@ -1,58 +1,15 @@
 import { useState, useEffect, isValidElement } from "react"
 import { Typography, Box } from "@mui/material"
+import MUIDataTable from "mui-datatables";
 
+//Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 /*             
             
             
             
             
             
-                       {list ? list.map((inv, i) => 
-                
-                <Box sx={{display:"flex",
-                justifyContent: 'space-between', 
-                alignItems: 'center', width: "30vw"}}>
-                    <Typography variant="h5">{inv[i].date_creation ? inv[i].date_creation : "null" }</Typography>
-                    <Typography variant="h5">{inv[i].description ? inv[i].description : "null"}</Typography>
-                </Box>
-                
-                ): "No hay datos"}
-           
-            
-            
-            
-            
-            */
-
-function InvestigationList() {
-
-    const [list, setList] = useState("");
-
-    const url = "http://localhost:3004/investigations";
-
-    const fetchApi = async () => {
-        const response = await fetch(url);
-        const data = await response.json();
-        setList(data);
-        console.log(data)
-    }
-    useEffect(() => { 
-        fetchApi() }, [])
-
-
-
-
-
-    return (
-        <div>
-            <Typography variant="h5" sx={{
-                fontWeight: "bold",
-                color: "#202980",
-                marginBottom: 4
-            }}>Mis investigaciones</Typography>
-            {console.log(list)}
-
-            <ul>
+ <ul>
 
                 {list ? list.map((inv) => <ul key={inv.id_investigation}>
 
@@ -67,9 +24,72 @@ function InvestigationList() {
 
 
             </ul>
+           
+            
+            
+            
+            
+            */
+
+function InvestigationList() {
+
+    const [list, setList] = useState([]);
+
+    const url = "http://localhost:3004/investigations";
+
+    const fetchApi = async () => {
+        const response = await fetch(url);
+        const data = await response.json();
+        setList(data);
+        console.log(data)
+    }
+    useEffect(() => { 
+        fetchApi() }, [])
 
 
-        </div>
+        const options = {
+                download: "false",
+                print: "false",
+                filter: "false",
+                viewColumns : "false",
+                selectableRows: "none"
+            }
+        
+
+        const columns = [
+            {
+                name:"id_investigation",
+                label:"ID"
+            },
+            {
+                name:"date_creation",
+                label:"Fecha"
+            },
+            {
+                name:"description",
+                label:"Descripción"
+            },
+            
+        ]
+
+    return (
+        <Box>
+            <Typography variant="h5" sx={{
+                fontWeight: "bold",
+                color: "#202980",
+                marginBottom: 4
+            }}>Mis investigaciones</Typography>
+
+
+
+                <MUIDataTable
+                title={""}
+                data={list}
+                columns={columns}
+                options={options}
+                />
+            
+        </Box>
     )
 }
 

@@ -12,7 +12,23 @@ function Investigation() {
 /*
   <Link to={`/item/${product.id}`} style={{textDecoration:"none"}}> 
                 Ver detalle
-                </Link> */
+                </Link>
+                
+                
+                
+                <Container maxWidth="lg" sx={{ 
+            marginTop: 1,
+            border: "0.5px solid",
+            padding: "10px",
+            boxShadow: 5, 
+            backgroundColor: "white", 
+            borderColor: 'grey.200',
+            borderRadius: 3, 
+            height: "100%",
+        }}>
+                
+                
+                */
 
   return (
 

@@ -107,12 +107,12 @@ export const secondaryListItems = (
     </ListItem>
     </Link>
 
-    <Link to="/admin/business" style={{ textDecoration: 'none', color: "#4154FF"}}>
+    <Link to="/admin/bitacora" style={{ textDecoration: 'none', color: "#4154FF"}}>
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="bitacora" />
+      <ListItemText primary="events" />
     </ListItem>
     </Link>
   </div>
