@@ -130,6 +130,23 @@ function DashboardContent({ component }) {
 
   */
 
+              const createEvent = (severity, event, userEmail) => {
+
+                let fetchEvent = fetch("http://localhost:3004/events/create", 
+                {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                        severity : severity, 
+                        event: event, 
+                        userEmail : userEmail
+                      })
+        
+                })}
+
   //Context User
 
   const navigate = useNavigate();
@@ -141,6 +158,7 @@ function DashboardContent({ component }) {
 
   const logoutUser = () => {
     logout();
+    createEvent("Informational", "Logout user", user.email)
     navigate("/");
     
   }

@@ -36,7 +36,8 @@ function InvestigationList() {
         setList(data);
         console.log(data)
     }
-    useEffect(() => { fetchApi() }, [])
+    useEffect(() => { 
+        fetchApi() }, [])
 
 
 

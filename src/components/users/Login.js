@@ -6,10 +6,27 @@ import UserContext from "../../context/UserContext"
 
 
 function Login() {
+
+    const createEvent = (severity, event, userEmail) => {
+
+        let fetchEvent = fetch("http://localhost:3004/events/create", 
+        {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                severity : severity, 
+                event: event, 
+                userEmail : userEmail
+              })
+
+        })}
     
     
      //Context User
-     const {login} = useContext(UserContext);
+     const {login, getUser} = useContext(UserContext);
 
 
     const navigate = useNavigate();
@@ -61,7 +78,9 @@ function Login() {
            const data = await response.json();
            console.log(data);
            login(data);
+           
            if (data.accessToken) { 
+            createEvent("Informational", "Login exitoso", data.email)
             setInputs({
                 email: "",
                 password: ""});
@@ -74,7 +93,9 @@ function Login() {
                }, 500)
                setLoading(true);
 
-           } else setMsg({msg:"Usuario no habilitado o incorrecto"})
+           } else {
+               setMsg({msg:"Usuario no habilitado o incorrecto"});
+                 createEvent("Low", "Login erroneo", email)}
            
         } else setMsg({msg:"Complete todos los campos"})
         

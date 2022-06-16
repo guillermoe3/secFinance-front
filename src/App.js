@@ -16,12 +16,24 @@ import AlertsManager from "./components/admin/AlertsManager"
 import BusinessManager from "./components/admin/BusinessManager"
 import UsersManager from "./components/admin/UsersManager"
 import Profile from "./components/users/Profile"
+import Bitacora from "./components/admin/Bitacora"
+import {useContext} from "react"
 import {UserContextProvider} from "./context/UserContext"
+import UserContext from "./context/UserContext"
 
 
 
 function App() {
 
+  // const user = useContext(UserContext);
+  // let resultLogged = user.isLogged();
+
+  /*
+  {resultLogged ? 
+                <div> 
+                </div> : 
+                null }
+  */
   return (
     <div>
 
@@ -31,6 +43,7 @@ function App() {
                 <Route path="/" element={<Landing component={<Info/>}/>}/>
                 <Route path="/login" element={<Landing component={<Login/>}/>}/>
                 <Route path="/Register" element={<Landing component={<Register/>}/>}/>
+                
                 <Route path="/home" element={<Dashboard component={<Home/>}/>}/>
                 <Route path="/profile" element={<Dashboard component={<Profile/>}/>}/>
                 <Route path="/logout" element={<Landing component={<Info/>}/>}/>
@@ -43,6 +56,9 @@ function App() {
                 <Route path="/admin/alerts" element={<Dashboard component={<AlertsManager/>}/>}/>
                 <Route path="/admin/business" element={<Dashboard component={<BusinessManager/>}/>}/>
                 <Route path="/admin/users" element={<Dashboard component={<UsersManager/>}/>}/>
+
+                <Route path="/admin/bitacora" element={<Dashboard component={<Bitacora/>}/>}/>
+                
                 <Route path="*" element={<NotFound/>}/>
 
             </Routes>
