@@ -11,6 +11,16 @@ function Check({ value }) {
 
     const url = "http://localhost:3004/analysis";
 
+    const tipo = () => {
+      if (isValidIP(value.ioc) == true){ 
+        console.log("Es una IP")
+        return "ip"
+      } else {
+        console.log("Es un dominio")
+        return "domain"
+      }
+    }
+
     const body = {
         method: 'POST',
         headers: {
@@ -18,7 +28,7 @@ function Check({ value }) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            type: 'domain',
+            type: tipo(),
             ioc: value.ioc, 
             description: value.description
           })
@@ -30,7 +40,7 @@ function Check({ value }) {
       }   
       return (false) } 
     
-      console.log("Es una IP? "+ isValidIP("asd"))
+     // console.log("Es una IP? "+ isValidIP("asd"))
 
       function isValidDomain(domain) {  
         if (/^(?:(?:(?:[a-zA-z\-]+)\:\/{1,3})?(?:[a-zA-Z0-9])(?:[a-zA-Z0-9\-\.]){1,61}(?:\.[a-zA-Z]{2,})+|\[(?:(?:(?:[a-fA-F0-9]){1,4})(?::(?:[a-fA-F0-9]){1,4}){7}|::1|::)\]|(?:(?:[0-9]{1,3})(?:\.[0-9]{1,3}){3}))(?:\:[0-9]{1,5})?$/.test(domain)) {  
@@ -38,7 +48,7 @@ function Check({ value }) {
         }   
         return (false) } 
 
-        console.log("Es un dominio? "+ isValidDomain("192.123.45.2"))
+        //console.log("Es un dominio? "+ isValidDomain("192.123.45.2"))
 
       
 
@@ -93,7 +103,7 @@ function Check({ value }) {
         m: 3, 
         border: '0.5px dashed grey', 
         boxShadow: "0 5px 10px 0 rgba(0, 0, 0, 0.3)"}} >
-            <div>aca</div>
+            
             <Box> IOC: {value.ioc} </Box>
             <Box> Descripción: {value.description} </Box>
             <Box> Result: {analysis ? 

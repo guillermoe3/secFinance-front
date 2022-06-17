@@ -43,22 +43,22 @@ function Investigation() {
 
       <Grid item xs={8}>
 
-        <FormControl sx={{width: "100%"}}>
+        <FormControl sx={{width: "100%", marginBottom: "2vh"}}>
 
           <InputLabel htmlFor=""> Nombre </InputLabel>
           <Input id="name" type="text" aria-describedby="name-helper" />
-          <FormHelperText id="name-helper"> Nombre de la investigación</FormHelperText>
+          
 
 
         </FormControl>
       </Grid>
 
       <Grid item xs={8} >
-        <FormControl sx={{width: "100%"}} >
+        <FormControl sx={{width: "100%", marginBottom: "2vh"}} >
 
           <InputLabel htmlFor=""> Descripción </InputLabel>
           <Input id="description" type="text" aria-describedby="description-helper" multiline={true} maxRows="10" />
-          <FormHelperText id="description-helper"> Descripción de la investigación</FormHelperText>
+          
 
         </FormControl>
       </Grid>

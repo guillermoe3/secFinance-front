@@ -26,11 +26,15 @@ function Home() {
                 <Box sx={{m: 2}}>
                     <SimpleBar />
                 </Box>
-
-
+                
                 <Box sx={{m: 2}}>
                     <Pie />
                 </Box>
+
+
+
+
+                
 
 
             </Container>
