@@ -5,7 +5,7 @@ import {useState, useEffect} from "react"
 
 
 
-function Check({ value }) {
+function Check({ value, removeCheck}) {
 
     const [analysis, setAnalysis] = useState("");
 
@@ -16,8 +16,15 @@ function Check({ value }) {
         console.log("Es una IP")
         return "ip"
       } else {
-        console.log("Es un dominio")
-        return "domain"
+        if (isValidUrl(value.ioc) == true){
+          console.log("es una url")
+          return "url"
+
+        } else {
+          console.log("Es un dominio")
+          return "domain"
+        }
+        
       }
     }
 
@@ -28,6 +35,7 @@ function Check({ value }) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
+            id_investigador: 28,
             type: tipo(),
             ioc: value.ioc, 
             description: value.description
@@ -50,7 +58,13 @@ function Check({ value }) {
 
         //console.log("Es un dominio? "+ isValidDomain("192.123.45.2"))
 
-      
+        function isValidUrl(url) {  
+          if (/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g.test(url)) {  
+            return (true)  
+          }   
+          return (false) }
+
+          //console.log("Es una url? "+ isValidUrl("google.com"))
 
 
 
@@ -65,6 +79,10 @@ function Check({ value }) {
     useEffect(() => {
         fetchApi()
     },[])
+
+    const remove = (ioc) => {
+      removeCheck(ioc);
+    }
     
     /*
     fetch('https://mywebsite.com/endpoint/', {
@@ -90,7 +108,8 @@ function Check({ value }) {
 
                                 
               
-            
+      remove(value.ioc)  
+      onClick={() => console.log("en check")}    
     */
 
 

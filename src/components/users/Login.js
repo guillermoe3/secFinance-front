@@ -7,7 +7,9 @@ import UserContext from "../../context/UserContext"
 
 function Login() {
 
+    //Bitacora login
     const createEvent = (severity, event, userEmail) => {
+
 
         let fetchEvent = fetch("http://localhost:3004/events/create", 
         {
@@ -50,6 +52,7 @@ function Login() {
     }
 
 
+    //#region login request
     const url = "http://localhost:3004/login";
 
     const body = {
@@ -63,6 +66,7 @@ function Login() {
             password: password,
           })
     }
+    //#endregion
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -76,6 +80,7 @@ function Login() {
             setLoading(true);
             const response = await fetch(url, body)
            const data = await response.json();
+           
            console.log(data);
            login(data);
            

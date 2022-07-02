@@ -2,6 +2,7 @@ import Button from '@mui/material/Button';
 import { FormControl, Input, InputLabel, FormHelperText, TextField, Container, Grid, Box, styled, Typography} from '@mui/material';
 import { useState, useEffect } from "react"
 import Check from "./Check"
+import {useParams } from 'react-router-dom';
 
 
 const StyledInput = styled(Input)({
@@ -12,8 +13,28 @@ function Analysis() {
 
     const [data, setData] = useState([])
 
-    //"Dato1", "dato2", "dato3"
+    let {id, user} = useParams();
+    console.log("user es "+ user + " y el id es "+id)
 
+
+
+    const fetchApi = async () => {
+
+        const response = await fetch(`http://localhost:3004/analysis/${id}`);
+        const data = await response.json();
+        console.log(data);
+        setData(data)
+        
+    }
+    
+
+    useEffect( () => {
+
+        fetchApi()
+    },[])
+    
+
+    
     const addCheck = e => {
         e.preventDefault();
         let ioc = e.target.ioc.value;
@@ -27,9 +48,21 @@ function Analysis() {
         ])
     }
 
+    const removeCheck = (ioc) => {
+        //buscar por ioc y remover en el state. 
+        console.log("ejecuté removeCheck")
+        console.log("el ioc a borrar es "+ioc)
+        console.log(data)
+       // setData(data.filter(item => item.ioc !== ioc));
+        console.log("data quedó así")
+        console.log(data)
+    }
+
 
 
     // {data ? data.map((check)=> <Check /> ) : <h2>Cargando...</h2>}
+
+    //removeCheck={removeCheck} 
     return (
 
         <Container maxWidth="lg" sx={{ 
@@ -48,7 +81,9 @@ function Analysis() {
         marginTop:4,
         marginBottom:4
       }}> Investigación </Typography>
+      <Button type="submit" variant="outlined" sx={{marginLeft:"70%"}}> Request review</Button>
             <p>Lorem ipsum dolor sit amet, consect</p>
+            
 
 
             <form onSubmit={addCheck}>
@@ -79,6 +114,7 @@ function Analysis() {
                 </Grid>
             </form>
             {console.log(data)}
+            
 
             {data ? data.map((dato, i) => {
                 

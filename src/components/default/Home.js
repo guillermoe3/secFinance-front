@@ -24,11 +24,11 @@ function Home() {
             
                 <p>Estadisticas</p>
                 <Box sx={{m: 2}}>
-                    <SimpleBar />
+                    <SimpleBar/>
                 </Box>
                 
                 <Box sx={{m: 2}}>
-                    <Pie />
+                    <Pie/>
                 </Box>
 
 

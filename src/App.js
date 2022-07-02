@@ -49,7 +49,7 @@ function App() {
                 <Route path="/logout" element={<Landing component={<Info/>}/>}/>
                 <Route path="/business" element={<Dashboard component={<Business/>}/>}/>
                 <Route path="/investigation" element={<Dashboard component={<InvestigationContainer/>}/>}/>
-                <Route path="/investigation/:id/analysis" element={<Dashboard component={<Analysis/>}/>}/>
+                <Route path="/investigation/:user/:id/analysis" element={<Dashboard component={<Analysis/>}/>}/>
                 <Route path="/alerts" element={<Dashboard component={<AlertsContainer/>}/>}/>
                 <Route path="/alerts/:id" element={<Dashboard component={<Alert/>}/>}/>
                 <Route path="/admin/" element={<Dashboard component={<Admin/>}/>}/>

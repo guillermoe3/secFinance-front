@@ -1,50 +1,54 @@
-import { useState, useEffect, isValidElement } from "react"
+import { useState, useEffect, isValidElement, useContext} from "react"
 import { Typography, Box } from "@mui/material"
 import MUIDataTable from "mui-datatables";
-
-//Table, TableBody, TableCell, TableContainer, TableHead, TableRow
-/*             
-            
-            
-            
-            
-            
- <ul>
-
-                {list ? list.map((inv) => <ul key={inv.id_investigation}>
-
-                    <li>
-                        Fecha de creación: {inv.date_creation}
-                    </li>
-                    <li>Descripción: {inv.description}
-                    </li>
+import UserContext from "../../context/UserContext"
+import {useNavigate} from "react-router-dom"
 
 
-                </ul>) : "No hay datos"}
-
-
-            </ul>
-           
-            
-            
-            
-            
-            */
 
 function InvestigationList() {
 
+
+    let navigate = useNavigate();
+
+
     const [list, setList] = useState([]);
 
-    const url = "http://localhost:3004/investigations";
+    const {getUser} = useContext(UserContext);
+    let user = getUser();
+    console.log(user.userId)
+
+    const url = `http://localhost:3004/investigations/${user.userId}`;
+    console.log(url)
 
     const fetchApi = async () => {
         const response = await fetch(url);
         const data = await response.json();
+
+        //console.log(data)
+       const newData = data.map( (dato) => {
+            console.log(dato);
+           /* dato = {
+                ...dato,
+                asd: "asd" 
+                
+            }*/
+
+            dato.link = `investigation/${user.userId}/${dato.id_investigation}`
+            
+
+        });
+        console.log("new data")
+        console.log(newData)
+
         setList(data);
-        console.log(data)
+       // console.log(data)
     }
     useEffect(() => { 
-        fetchApi() }, [])
+        fetchApi() }, []
+        );
+
+    
 
 
         const options = {
@@ -52,7 +56,11 @@ function InvestigationList() {
                 print: "false",
                 filter: "false",
                 viewColumns : "false",
-                selectableRows: "none"
+                selectableRows: "none",
+                onRowClick: rowData => navigate(`/${rowData[3]}/analysis`)
+                //rowData => console.log(rowData[3])
+                //rowData => navigate(`${rowData.link}`, { replace: true })
+
             }
         
 
@@ -69,6 +77,11 @@ function InvestigationList() {
                 name:"description",
                 label:"Descripción"
             },
+            
+            {
+                name:"link",
+                label:"Link"   
+            }
             
         ]
 

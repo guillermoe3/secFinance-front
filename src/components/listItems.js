@@ -68,7 +68,7 @@ export const mainListItems = (
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
-      <ListItemText primary="Menu4" />
+      <ListItemText primary="Reviews" />
     </ListItem>
     </Link>
   </div>
