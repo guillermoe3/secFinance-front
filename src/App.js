@@ -20,20 +20,13 @@ import Bitacora from "./components/admin/Bitacora"
 import {useContext} from "react"
 import {UserContextProvider} from "./context/UserContext"
 import UserContext from "./context/UserContext"
+import InvestigationReview from "./components/investigations/InvestigationsReview"
 
 
 
 function App() {
 
-  // const user = useContext(UserContext);
-  // let resultLogged = user.isLogged();
 
-  /*
-  {resultLogged ? 
-                <div> 
-                </div> : 
-                null }
-  */
   return (
     <div>
 
@@ -48,6 +41,7 @@ function App() {
                 <Route path="/profile" element={<Dashboard component={<Profile/>}/>}/>
                 <Route path="/logout" element={<Landing component={<Info/>}/>}/>
                 <Route path="/business" element={<Dashboard component={<Business/>}/>}/>
+                <Route path="/review" element={<Dashboard component={<InvestigationReview/>}/>}/>
                 <Route path="/investigation" element={<Dashboard component={<InvestigationContainer/>}/>}/>
                 <Route path="/investigation/:user/:id/analysis" element={<Dashboard component={<Analysis/>}/>}/>
                 <Route path="/alerts" element={<Dashboard component={<AlertsContainer/>}/>}/>

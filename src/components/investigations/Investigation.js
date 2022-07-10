@@ -43,6 +43,14 @@ function Investigation() {
     navigate(`/investigation/${user.userId}/${data.id_investigation}/analysis`);
 
   }
+
+  /* 
+  
+      <div>
+      <Link style={{textDecoration: 'none', color: "#4154FF"}} to={`/investigation/${user.userId}/analysis`}>Crear Investigación</Link>
+      </div>
+      
+      */
   
 
 
@@ -86,9 +94,7 @@ function Investigation() {
         
       </form> 
 
-      <div>
-      <Link style={{textDecoration: 'none', color: "#4154FF"}} to={`/investigation/${user.userId}/analysis`}>Crear Investigación</Link>
-      </div>
+  
 
 
      

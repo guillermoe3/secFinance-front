@@ -1,6 +1,6 @@
 import { Container, Box, FormControl, InputLabel, Input, styled, FormControlLabel, Checkbox, Button, Typography, Select, MenuItem} from '@mui/material'
 import { Link } from "react-router-dom"
-import {useState} from "react"
+import {useState, useEffect} from "react"
 
     
   
@@ -22,6 +22,24 @@ function UsersManager() {
         "id_business": "2"
     }]
 
+    /*
+
+    const [users, setUsers] = ([]);
+
+    const getUsers = async () => {
+
+        const response = await fetch("http://localhost:3004/users")
+        const data = await response.json();
+        setUsers(data)
+        console.log(data)
+
+    }
+
+    useEffect(
+        () => {
+            getUsers();
+        },[])
+*/
 
     const [business, setBusiness] = useState('');
 

@@ -2,8 +2,7 @@ import { Container, Box, FormControl, InputLabel, Input, styled, FormControlLabe
 import { Link } from "react-router-dom"
 
 const StyledInput = styled(Input)({
-    width: "30vh",
-    margin: "10px",
+    width: "70vh",
 });
 
 
@@ -20,13 +19,13 @@ function AlertsManager (){
             height: "100%",
         }}> 
         
-            <Box sx={{ display: 'flex', flexDirection: 'column', m: 4 }}>
 
-                    <Typography variant="h4" sx={{
+        <Typography variant="h4" sx={{
                         fontWeight: "bold",
                         color: "#202980", m: 2
                     }}>Crear nueva Alerta</Typography>
-                    Categoria Riesgo Titulo Body1 Body2
+
+            <Box sx={{ display: 'flex', flexDirection: 'column', m: 4, alignItems: "center"}}>
                     <Box>
                         <FormControl>
                             <InputLabel htmlFor="title"> Titulo </InputLabel>
@@ -44,7 +43,7 @@ function AlertsManager (){
                     <FormControl>
 
                         <InputLabel htmlFor=""> Body1 </InputLabel>
-                        <Input id="description" type="text" aria-describedby="description-helper" multiline={true} maxRows="10" />
+                        <Input sx={{width: "70vh"}} id="description" type="text" aria-describedby="description-helper" multiline={true} maxRows="10" />
                         <FormHelperText id="description-helper">Body principal de la alerta</FormHelperText>
 
                     </FormControl>
@@ -52,7 +51,7 @@ function AlertsManager (){
                     <FormControl>
 
                         <InputLabel htmlFor=""> Body2 </InputLabel>
-                        <Input id="description" type="text" aria-describedby="description-helper" multiline={true} maxRows="10" />
+                        <Input sx={{width: "70vh"}} id="description" type="text" aria-describedby="description-helper" multiline={true} maxRows="10" />
                         <FormHelperText id="description-helper">Body secundario de la alerta</FormHelperText>
 
                     </FormControl>
@@ -65,6 +64,8 @@ function AlertsManager (){
                                 </Link>
                         </Button>
                     </Box>
+
+                    <Box> Seleccionar el cliente</Box>
 
                     </Box>
         

@@ -19,6 +19,7 @@ function InvestigationContainer() {
                 borderColor: 'grey.200',
                 borderRadius: 3, 
                 
+                
             }}>
             <Grid item xs={12} sx={{m:5,
             border: "0.1px solid", 

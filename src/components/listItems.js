@@ -18,7 +18,13 @@ const customTheme = createTheme({
   
 });
 
+
+
 export const mainListItems = (
+
+
+
+
   <div>
    <Link to="/home" style={{ textDecoration: 'none', color: "#4154FF"}}>
     <ListItem button>
@@ -63,23 +69,13 @@ export const mainListItems = (
     </ListItem>
     </Link>
 
-    <Link to="/alerts" style={{ textDecoration: 'none', color: "#4154FF"}}>
-    <ListItem button>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Reviews" />
-    </ListItem>
-    </Link>
+    
   </div>
 );
 
 export const secondaryListItems = (
   <div>
-    <ListSubheader inset sx={{backgroundColor: "#262629",
-              color: "#4154FF", 
-            }}            
-              >title: admin functions</ListSubheader>
+
     <Link to="/admin/alerts" style={{ textDecoration: 'none', color: "#4154FF"}}>
     <ListItem button>
       <ListItemIcon>
@@ -115,5 +111,31 @@ export const secondaryListItems = (
       <ListItemText primary="events" />
     </ListItem>
     </Link>
+  </div>
+);
+
+
+export const analystListItems = (
+  <div>
+
+    <Link to="/review" style={{ textDecoration: 'none', color: "#4154FF"}}>
+    <ListItem button>
+      <ListItemIcon>
+        <LayersIcon />
+      </ListItemIcon>
+      <ListItemText primary="Reviews" />
+    </ListItem>
+    </Link>
+
+    <Link to="/admin/alerts" style={{ textDecoration: 'none', color: "#4154FF"}}>
+                <ListItem button>
+                  <ListItemIcon>
+                    <AssignmentIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="manage alerts" />
+                </ListItem>
+                </Link>
+
+
   </div>
 );

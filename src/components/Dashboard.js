@@ -14,14 +14,14 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
+import { mainListItems, secondaryListItems, analystListItems} from './listItems';
 import Button from '@mui/material/Button'
 import { AccountCircle } from "@material-ui/icons"
 import Copyright from "./default/Copyright"
 import {Tooltip, Menu, MenuItem, MenuList, ListItem, ListItemIcon, ListItemText} from "@mui/material"
 import AssignmentIcon from '@mui/icons-material/Assignment';
 
-import {useState, useContext} from "react"
+import {useState, useContext, useEffect} from "react"
 import UserContext from "../context/UserContext"
 import {useNavigate} from "react-router-dom"
 
@@ -104,31 +104,6 @@ function DashboardContent({ component }) {
   };
 
 
-  /* precambios user menu
-  
-      <IconButton aria-label="account" color="inherit"/>
-                  <AccountCircle />
-                </IconButton>
-
-
-
-
-                {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-
-
-
-              <Link to="/profile">
-
-
-
-              menu login register
-
-
-  */
 
               const createEvent = (severity, event, userEmail) => {
 
@@ -162,7 +137,28 @@ function DashboardContent({ component }) {
     navigate("/");
     
   }
+
+  const [review, setReview] = useState("0");
+
+  const getReview = async () => {
+      const response = await fetch("http://localhost:3004/investigation/toreview");
+      const data = await response.json();
+      //console.log("en getReview")
+      //console.log(data.length)
+      setReview(data.length);
+
+  }
+
+  useEffect(()=> {
+    getReview();
+
+  }, [review])
   
+
+  const clicOnButton = () => {
+    console.log("clic en el boton")
+    navigate("/review");
+  }
  
 
   return (
@@ -196,11 +192,15 @@ function DashboardContent({ component }) {
             >
               Security Finance
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
+            
+            <IconButton color="inherit" onClick={clicOnButton}>
+              <Badge badgeContent={review} color="secondary">
+                
+                   <NotificationsIcon />
+                
               </Badge>
             </IconButton>
+            
             
             {console.log(result)}
             {result ? 
@@ -304,6 +304,26 @@ function DashboardContent({ component }) {
           }}>{mainListItems}</List>
           <Divider />
 
+          {role !== "investigador" ? 
+          <div>
+              <Typography 
+              component="h5"
+              variant="h6"
+              sx={{
+                backgroundColor: "#262629",
+                color: "#4154FF",
+                marginLeft:1,
+              }}>
+              Analyst
+              </Typography>
+              <List sx={{
+                backgroundColor: "#262629",
+                color: "#4154FF"
+              }}>{analystListItems}</List>
+              <Divider />
+              </div>
+              : null}
+
           {console.log(role)}
           {role == "admin" ? 
           <div> 
@@ -328,16 +348,9 @@ function DashboardContent({ component }) {
 
             : null
             }
-            {role == "investigador" ? 
-                <Link to="/admin/alerts" style={{ textDecoration: 'none', color: "#4154FF"}}>
-                <ListItem button>
-                  <ListItemIcon>
-                    <AssignmentIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="manage alerts" />
-                </ListItem>
-                </Link>
-                : null}
+           
+  
+                
 
         </Drawer>
 
