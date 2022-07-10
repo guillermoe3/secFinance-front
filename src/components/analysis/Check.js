@@ -13,6 +13,7 @@ function Check({ value, removeCheck}) {
     const [related, setRelated] = useState("");
 
     const tipo = () => {
+      console.log(value.ioc)
       if (isValidIP(value.ioc) == true){ 
         console.log("Es una IP")
         return "ip"
@@ -21,38 +22,54 @@ function Check({ value, removeCheck}) {
           console.log("es una url")
           return "url"
 
-        } else {
+        } else if (isValidDomain(value.ioc) == true) {
           console.log("Es un dominio")
           return "domain"
-        }
+        } else if (isValidHash(value.ioc) == true){
+          console.log("Es un hash")
+          return "hash"
+        } else console.log("error")
         
       }
     }
 
 
+    //old expression /^(25[0-5]|2[0-4][0-9]|[1]?[1-9][1-9]?)\.(25[0-5]|2[0-4][0-9]|[1]?[1-9][1-9]?)\.(25[0-5]|2[0-4][0-9]|[1]?[1-9][1-9]?)\.(25[0-5]|2[0-4][0-9]|[1]?[1-9][1-9]?)$/
     function isValidIP(ipaddress) {  
-      if (/^(25[0-5]|2[0-4][0-9]|[1]?[1-9][1-9]?)\.(25[0-5]|2[0-4][0-9]|[1]?[1-9][1-9]?)\.(25[0-5]|2[0-4][0-9]|[1]?[1-9][1-9]?)\.(25[0-5]|2[0-4][0-9]|[1]?[1-9][1-9]?)$/.test(ipaddress)) {  
+      if (/^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipaddress)) {  
         return (true)  
       }   
       return (false) } 
     
-     // console.log("Es una IP? "+ isValidIP("asd"))
+        //console.log("Es una IP? "+ isValidIP("45.1.37.102"))
 
+        //domain probar /(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/
       function isValidDomain(domain) {  
         if (/^(?:(?:(?:[a-zA-z\-]+)\:\/{1,3})?(?:[a-zA-Z0-9])(?:[a-zA-Z0-9\-\.]){1,61}(?:\.[a-zA-Z]{2,})+|\[(?:(?:(?:[a-fA-F0-9]){1,4})(?::(?:[a-fA-F0-9]){1,4}){7}|::1|::)\]|(?:(?:[0-9]{1,3})(?:\.[0-9]{1,3}){3}))(?:\:[0-9]{1,5})?$/.test(domain)) {  
           return (true)  
         }   
         return (false) } 
 
-        //console.log("Es un dominio? "+ isValidDomain("192.123.45.2"))
+        //console.log("Es un dominio? "+ isValidDomain("http://soheylistore.ir/"))
 
+        //valid url ^(http|https)?:\/\/?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)
         function isValidUrl(url) {  
-          if (/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g.test(url)) {  
+          if (/^(http|https)?:\/\/?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g.test(url)) {  
             return (true)  
           }   
           return (false) }
 
           //console.log("Es una url? "+ isValidUrl("google.com"))
+
+          function isValidHash(hash) {  
+            if (/^[a-f0-9]{64}$/gi.test(hash)) {  
+              return (true)  
+            }   
+            return (false) }
+
+            //console.log("Es un hash? "+ isValidHash("11160be4b95b6d30da355a0c124af82b35000bce8f24f957d1c09ead47544a1e"))
+
+          
 
 
 
@@ -102,7 +119,7 @@ function Check({ value, removeCheck}) {
     }
 
     useEffect(() => {
-        fetchRelatedObject();
+        //fetchRelatedObject();
         fetchApi()
     },[])
 
@@ -125,7 +142,7 @@ function Check({ value, removeCheck}) {
                   color: "gray"}} >
 
                   <Box sx={{width: "45%", p: 1}}>
-                    <Box sx={{marginBottom:1}}> <Typography sx={{fontWeight: '400', fontSize: "16px", color: "#0b1566"}}>IOC </Typography> <Typography sx={{fontSize: "15px"}}> {value.ioc} </Typography></Box>
+                    <Box sx={{marginBottom:1}}> <Typography sx={{fontWeight: '400', fontSize: "16px", color: "#0b1566"}}>IOC </Typography> <Typography sx={{fontSize: "15px"}} noWrap> {value.ioc} </Typography></Box>
                     <Box> <Typography sx={{fontWeight: '400', fontSize: "16px", color: "#0b1566"}}>Descripción</Typography> {value.description} </Box>
                   </Box>
                   <Box sx={{width: "20%"}}>
@@ -135,17 +152,31 @@ function Check({ value, removeCheck}) {
 
                         <Box> 
 
-                          <Box> No Malicioso: {analysis.result.harmless 
-                            ? 
-                               <Typography sx={{color: "green", fontSize:"14px"}}> {analysis.result.harmless} </Typography>
-                            : 
-                              <Typography sx={{fontSize:"14px"}}>{analysis.result.harmless}</Typography> } </Box>
-                          <Box> Malicioso: {analysis.result.malicious 
+                          <Box sx={{display:"flex"}}> 
+                              <Typography sx={{fontSize:"13px"}}> No Malicioso: </Typography>{analysis.result.harmless 
+                              ? 
+                                <Typography sx={{color: "green", fontSize:"14px"}}> {analysis.result.harmless} </Typography>
+                              : 
+                                <Typography sx={{fontSize:"14px"}}>{analysis.result.harmless}</Typography> } 
+                              
+                            </Box>
+                          <Box sx={{display:"flex"}}>  <Typography sx={{fontSize:"13px"}}>Malicioso: </Typography> {analysis.result.malicious 
                           ? 
                           <Typography sx={{color: "red", fontSize:"14px"}}>{analysis.result.malicious} </Typography>
                           : 
-                          <Typography sx={{fontSize:"14px"}}>{analysis.result.malicious}</Typography> } </Box>
-                          <Box> Sospechoso: {analysis.result.suspicious} </Box>
+                          <Typography sx={{fontSize:"14px"}}>{analysis.result.malicious}</Typography> } 
+                          </Box>
+
+                          <Box sx={{display:"flex"}}> 
+                          <Typography sx={{fontSize:"13px"}}> Sospechoso:</Typography> {analysis.result.suspicious 
+                          ? 
+                            <Typography sx={{color: "yellow", fontSize:"14px"}}>{analysis.result.suspicious} </Typography>
+                          : 
+                            <Typography sx={{fontSize:"14px"}}>{analysis.result.suspicious} </Typography>
+                          
+                          } 
+                          
+                          </Box>
                           <Box> No detectado: {analysis.result.undetected} </Box>
                         </Box>
                     : "Cargando..."}
