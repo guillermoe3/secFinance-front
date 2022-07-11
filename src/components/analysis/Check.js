@@ -110,17 +110,58 @@ function Check({ value, removeCheck}) {
 
 
     //isInDB
+
+    const [from, setFrom] = useState("API")
+   
+    const checkFrom = async () => {
+
+      console.log("checkFrom")
+
+      const response = await fetch("http://localhost:3004/analysis/isindb", {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ioc: value.ioc, 
+          })})
+          console.log(response)
+
+          const data = await response.json();
+          console.log("esto es data desde checkFrom")
+          console.log(data)
+          
+
+          if (data !== 400){
+            console.log("entró al if de data")
+            setFrom("DB")
+            console.log("data desde DB")
+            console.log(data)
+            setAnalysis(data);
+          } else {
+            console.log("Entro al else")
+            fetchApi();
+          }
+          
+          //return data;
+
+    }
+    
     const fetchApi = async () => {
       const response = await fetch(url, body);
       const data = await response.json();
+      console.log("data desde fetchAPI")
       console.log(data);
       setAnalysis(data);
       
     }
 
-    useEffect(() => {
+    useEffect(async () => {
         //fetchRelatedObject();
-        fetchApi()
+        checkFrom();
+        
+        
     },[])
 
     const remove = (ioc) => {
@@ -142,7 +183,7 @@ function Check({ value, removeCheck}) {
                   color: "gray"}} >
 
                   <Box sx={{width: "45%", p: 1}}>
-                    <Box sx={{marginBottom:1}}> <Typography sx={{fontWeight: '400', fontSize: "16px", color: "#0b1566"}}>IOC </Typography> <Typography sx={{fontSize: "15px"}} noWrap> {value.ioc} </Typography></Box>
+                    <Box sx={{marginBottom:1}}> <Typography sx={{fontWeight: '400', fontSize: "16px", color: "#0b1566"}}>IOC (from {from}) </Typography> <Typography sx={{fontSize: "15px"}} noWrap> {value.ioc} </Typography></Box>
                     <Box> <Typography sx={{fontWeight: '400', fontSize: "16px", color: "#0b1566"}}>Descripción</Typography> {value.description} </Box>
                   </Box>
                   <Box sx={{width: "20%"}}>

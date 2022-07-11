@@ -1,12 +1,36 @@
-import { Container, Box, FormControl, InputLabel, Input, styled, FormControlLabel, Checkbox, Button, Typography, FormHelperText} from '@mui/material'
+import { Container, Box, FormControl, InputLabel, Input, styled, FormControlLabel, Checkbox, Button, Typography, FormHelperText, 
+Select, MenuItem} from '@mui/material'
 import { Link } from "react-router-dom"
+import {useState, useEffect} from "react"
 
 const StyledInput = styled(Input)({
     width: "70vh",
 });
 
-
 function AlertsManager (){
+
+
+
+
+    const [business, setBusiness] = useState("");
+
+
+    const getBusiness = async () => {
+        const response = await fetch("http://localhost:3004/business")
+        const data = await response.json();
+        console.log(data)
+        setBusiness(data)
+    }
+    useEffect(()=> {
+
+        getBusiness();
+
+        
+
+    }, [])
+
+
+
     return (
         <Container maxWidth="lg" sx={{
             marginTop: 1,
@@ -18,6 +42,8 @@ function AlertsManager (){
             borderRadius: 3,
             height: "100%",
         }}> 
+
+     
         
 
         <Typography variant="h4" sx={{
@@ -55,6 +81,16 @@ function AlertsManager (){
                         <FormHelperText id="description-helper">Body secundario de la alerta</FormHelperText>
 
                     </FormControl>
+                    <Box sx={{minWidth: 120, m:4}}> 
+                                        <FormControl fullWidth>
+                                        <InputLabel>Empresa</InputLabel>
+                                        <Select>
+                                            <MenuItem value={10}>Ten</MenuItem>
+                                            <MenuItem value={20}>Twenty</MenuItem>
+                                            <MenuItem value={30}>Thirty</MenuItem>
+                                        </Select>
+                                </FormControl>
+                    </Box>
 
  
                     <Box>
@@ -65,7 +101,7 @@ function AlertsManager (){
                         </Button>
                     </Box>
 
-                    <Box> Seleccionar el cliente</Box>
+ 
 
                     </Box>
         

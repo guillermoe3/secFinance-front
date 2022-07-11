@@ -4,6 +4,7 @@ import { useState, useEffect, useContext} from "react"
 import Check from "./Check"
 import {useParams } from 'react-router-dom';
 import UserContext from "../../context/UserContext"
+import Description from "./Description"
 
 
 const StyledInput = styled(Input)({
@@ -71,16 +72,19 @@ function Analysis() {
     
 
     useEffect( () => {
+        getInfo();
         isRequestReview();
         fetchApi();
         isClosed();
         checkComments();
+        
     },[])
     
 
     
     const addCheck = e => {
         e.preventDefault();
+        setError("no hay errores");
         
         let ioc = e.target.ioc.value;
         let description = e.target.description.value;
@@ -163,6 +167,39 @@ function Analysis() {
 
     }
 
+
+    const [error, setError] = useState("")
+    const [investigation, setInvestigation] = useState([]);
+
+    const getInfo = async () => {
+        const response = await fetch(`http://localhost:3004/investigations/${user}/${id}`);
+        const data = await response.json();
+        console.log("aaaaaaaaaaaaaaaaaaasdasdasdasdassdasdsadasdasdasdasdasdsadsadadss")
+        console.log(data)
+        setInvestigation(data)
+    }
+
+
+   
+    const description = () => {
+
+
+
+        return (
+
+            <Typography> 
+                        {investigation > 0
+                            ?   <Typography sx={{fontSize: "16px", m: 4}}> 
+                                    {investigation[0].description} 
+                                </Typography>
+                            
+                            : "undefined"}
+            </Typography>
+            )
+    }
+
+  
+
  
 
 
@@ -212,7 +249,7 @@ function Analysis() {
 
 
 
-            
+
            
 
                 {comments.comment 
@@ -237,16 +274,11 @@ function Analysis() {
                     : ""
                  }
 
+
+                {/*description()*/}
+                <p>Aca va la descripción</p>
          
             
-
-
-            <p>Lorem ipsum dolor sit amet, consect</p>
-
-            
-            
-
-
             <form onSubmit={addCheck}>
 
                 <Grid
@@ -269,6 +301,7 @@ function Analysis() {
                             <StyledInput type="text" name="description" />
                         </FormControl>
                     </Box>
+                    <Typography>{error ? error : ""} </Typography>
                     <Box>
                         <Button type="submit" variant="contained" color="primary"> Crear!</Button>
                     </Box>

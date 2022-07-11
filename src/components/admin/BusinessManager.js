@@ -1,5 +1,6 @@
 import { Container, Box, FormControl, InputLabel, Input, styled, FormControlLabel, Checkbox, Button, Typography } from '@mui/material'
 import { Link } from "react-router-dom"
+import {useState, useEffect} from "react"
 
 const StyledInput = styled(Input)({
     width: "30vh",
@@ -7,58 +8,48 @@ const StyledInput = styled(Input)({
 });
 
 function BusinessManager() {
-    return (
-        <Container maxWidth="lg" sx={{
-            marginTop: 1,
-            border: "0.5px solid",
-            padding: "10px",
-            boxShadow: 5,
-            backgroundColor: "white",
-            borderColor: 'grey.200',
-            borderRadius: 3,
-            height: "100%",
-        }}>
 
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', m: 4 }}>
 
-                <Typography variant="h4" sx={{
-                    fontWeight: "bold",
-                    color: "#202980", m: 2
-                }}>Crear nueva Empresa</Typography>
-                <Box>
-                    <FormControl>
-                        <InputLabel htmlFor="firstname"> Nombre </InputLabel>
-                        <StyledInput id="firstname" type="text" name="firstname" />
-                    </FormControl>
+    const newBusiness = (e) => {
+        e.preventDefault();
+        
+        
+    }
+
+
+    const [business, setBusiness] = useState([]);
+
+    const getBusiness = async () => {
+
+        const response = await fetch("http://localhost:3004/business")
+        const data = await response.json();
+        console.log(data)
+       //const array = data.values();
+        setBusiness(data);
+
+    }
+
+    useEffect(() => {
+        getBusiness();
+    },[])
+
+
+
+    /*     <Box sx={{ display: 'flex', flexDirection: 'row', width: "80%", justifyContent: 'space-between' }}>
+                        <Typography variant="h6"> ID: {dato.id_business}</Typography>
+                        <Typography variant="h6"> Nombre: {dato.name} </Typography>
+                        <Box>
+                            <Button sx={{ m: 1 }} variant="outlined" color="secondary">Disable</Button>
+                            <Button variant="outlined" color="secondary">Delete</Button>
+                        </Box>
                 </Box>
-
-                <Box>
-                    <FormControl>
-                        <InputLabel htmlFor="razonsocial"> Razon Social </InputLabel>
-                        <StyledInput id="razonsocial" type="text" name="razonsocial" />
-                    </FormControl>
-                </Box>
-
-                <Box>
-                    <FormControlLabel control={<Checkbox defaultChecked />} label="Activo" />
-                </Box>
-                <Box>
-                    <Button type="submit" variant="contained" color="primary">
-                        <Link to="/" style={{ textDecoration: 'none', color: "#4154FF" }}>
-                            Crear
-                             </Link>
-                    </Button>
-                </Box>
-
-            </Box>
-           
+                
+                
+                
+                
            
             <Box sx={{ width: "100%" }}>
-                <Typography variant="h4" sx={{
-                    fontWeight: "bold",
-                    color: "#202980", marginBottom: 2
-                }}>
-                    Listado de Empresas</Typography>
+                
                 <Box sx={{ display: 'flex', flexDirection: 'row', width: "80%", justifyContent: 'space-between' }}>
                     <Typography variant="h6"> Banco Galicia</Typography>
                     <Typography variant="h6"> Grupo Financiero Galicia S.A </Typography>
@@ -78,7 +69,79 @@ function BusinessManager() {
                 </Box>
 
             </Box>
+                
+                
+                
+                
+                */
 
+    return (
+        <Container maxWidth="lg" sx={{
+            marginTop: 1,
+            border: "0.5px solid",
+            padding: "10px",
+            boxShadow: 5,
+            backgroundColor: "white",
+            borderColor: 'grey.200',
+            borderRadius: 3,
+            height: "100%",
+        }}>
+
+                {business.map((dato) => {
+                <p>{dato.name}</p>
+                }
+                )}
+
+               
+
+
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', m: 4 }}>
+
+                <form onSubmit={newBusiness}> 
+                        <Typography variant="h4" sx={{
+                            fontWeight: "bold",
+                            color: "#202980", m: 2
+                        }}>Crear nueva Empresa</Typography>
+                        <Box>
+                            <FormControl>
+                                <InputLabel htmlFor="firstname"> Nombre </InputLabel>
+                                <StyledInput id="firstname" type="text" name="firstname" />
+                            </FormControl>
+                        </Box>
+
+                        <Box>
+                            <FormControl>
+                                <InputLabel htmlFor="razonsocial"> Razon Social </InputLabel>
+                                <StyledInput id="razonsocial" type="text" name="razonsocial" />
+                            </FormControl>
+                        </Box>
+
+                        <Box>
+                            <FormControlLabel control={<Checkbox defaultChecked />} label="Activo" />
+                        </Box>
+                        <Box>
+                            <Button type="submit" variant="contained" color="primary">
+                                    Crear
+                            </Button>
+                        </Box>
+
+                </form>
+
+            </Box>
+           
+            <Typography variant="h4" sx={{
+                    fontWeight: "bold",
+                    color: "#202980", marginBottom: 2
+                }}>
+                    Listado de Empresas</Typography>
+
+           
+            
+           
+
+        
+
+           
 
         </Container>
     )
