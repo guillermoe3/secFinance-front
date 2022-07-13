@@ -73,7 +73,7 @@ function CheckStatic({value}) {
                           <Box sx={{display:"flex"}}> 
                           <Typography sx={{fontSize:"13px"}}> Sospechoso:</Typography> {results.suspicious 
                           ? 
-                            <Typography sx={{color: "yellow", fontSize:"14px"}}>{results.suspicious} </Typography>
+                            <Typography sx={{color: "#fca503", fontSize:"14px"}}>{results.suspicious} </Typography>
                           : 
                             <Typography sx={{fontSize:"14px"}}>{results.suspicious} </Typography>
                           

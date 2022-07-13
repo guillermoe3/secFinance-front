@@ -215,7 +215,7 @@ function Check({ value, removeCheck}) {
                           <Box sx={{display:"flex"}}> 
                           <Typography sx={{fontSize:"13px"}}> Sospechoso:</Typography> {analysis.result.suspicious 
                           ? 
-                            <Typography sx={{color: "yellow", fontSize:"14px"}}>{analysis.result.suspicious} </Typography>
+                            <Typography sx={{color: "#fca503", fontSize:"14px"}}>{analysis.result.suspicious} </Typography>
                           : 
                             <Typography sx={{fontSize:"14px"}}>{analysis.result.suspicious} </Typography>
                           
@@ -234,7 +234,7 @@ function Check({ value, removeCheck}) {
                       
                       {related ? related.map(dato =>
                           <Box sx={{display:"flex", margin:0}}>
-                                  <Typography sx={{marginRight: 1}}>{dato ? dato : ""}</Typography> 
+                                  <Typography sx={{marginRight: 1}}>{dato ? dato.ioc : ""}</Typography> 
                                   <Link to="/test">Add</Link>
                           </Box>) : "nothing"}
                   </Box>

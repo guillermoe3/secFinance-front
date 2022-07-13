@@ -13,6 +13,7 @@ function InvestigationReview() {
 
 
     const [list, setList] = useState([]);
+    const [myreviews, setMyreviews] = useState([]);
 
     const {getUser} = useContext(UserContext);
     let user = getUser();
@@ -25,14 +26,32 @@ function InvestigationReview() {
         const data = await response.json();
 
         const newData = data.map( (dato) => {
-            console.log(dato);
+            //console.log(dato);
             dato.link = `investigation/${user.userId}/${dato.id_investigation}`
         });
 
         setList(data);
     }
+
+    const fetchApiMyReview = async () => {
+        const response = await fetch(`http://localhost:3004/investigation/myreview/${user.userId}`);
+        //console.log(user)
+        //console.log(`http://localhost:3004/investigation/myreview/${user.userId}`)
+        const data = await response.json();
+
+        const newData = data.map( (dato) => {
+            //console.log(dato);
+            dato.link = `investigation/${user.userId}/${dato.id_investigation}`
+        });
+
+        setMyreviews(data);
+    }
+
+
     useEffect(() => { 
-        fetchApi() }, []
+        fetchApi()
+        fetchApiMyReview();
+     }, []
         );
 
         const options = {
@@ -94,7 +113,7 @@ function InvestigationReview() {
 
             <MUIDataTable
                 title={""}
-                data={list}
+                data={myreviews}
                 columns={columns}
                 options={options}
                 />

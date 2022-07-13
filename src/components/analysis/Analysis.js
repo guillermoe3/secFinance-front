@@ -12,6 +12,12 @@ const StyledInput = styled(Input)({
     width: "40vh",
 });
 
+const StyledTypography = styled(Typography)({
+    fontSize: "12px",
+    color: "#202980",
+    fontWeight: '300'
+});
+
 function Analysis() {
 
     const [closed, setClosed] = useState(false)
@@ -22,6 +28,17 @@ function Analysis() {
         const data = await response.json()
         setClosed(data)
 
+    }
+
+    const [requested, setRequested] = useState(false)
+    const [stats, setStats] = useState({});
+
+    const getStats = async () => {
+        const response = await fetch (`http://localhost:3004/investigation/statistics/${id}`)
+        const data = await response.json();
+        setStats(data)
+        console.log("esto es getStats")
+        console.log(data)
     }
 
     const requestReview = async () => {
@@ -36,19 +53,53 @@ function Analysis() {
                 review: "1"
             })
         });
+
+        //getMoreInformation Inv
    
         setRequested(true)
         
 
     }
 
-    const [requested, setRequested] = useState(false)
+ 
     const isRequestReview = async () => {
         const response = await fetch(`http://localhost:3004/investigation/${id}/requested`)
         console.log(`http://localhost:3004/investigation/${id}/requested`)
         const data = await response.json()
         setRequested(data)
 
+    }
+
+    const [validated, setValidated] = useState(false)
+
+    const isValidated = async () => {
+
+        const response = await fetch(`http://localhost:3004/investigation/${id}/validated`)
+        const data = await response.json()
+        setValidated(data)
+
+    }
+
+    const validate = async () => {
+        //validar inv. 
+        //remove request inv
+        //actualizar estado review
+        const response = await fetch(`http://localhost:3004/investigation/${id}/update`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+            body: JSON.stringify({
+                validated: "1",
+                review: "0",
+                id_analyst: user ? user : 0
+            })
+        });
+
+        
+   
+        setValidated(true)
     }
 
     const [data, setData] = useState([])
@@ -78,9 +129,11 @@ function Analysis() {
     useEffect( () => {
         getInfo();
         isRequestReview();
+        isValidated();
         fetchApi();
         isClosed();
         checkComments();
+        getStats();
         
     },[])
     
@@ -108,11 +161,13 @@ function Analysis() {
 
         const response = await fetch(`http://localhost:3004/investigation/${id}/commented`);
         const data = await response.json();
-        console.log("checkComments")
-        console.log(data);
+        //console.log("checkComments")
+        //console.log(data);
         setComments(data)
 
     }
+
+  
 
     const sendComments = async e => {
         e.preventDefault();
@@ -131,11 +186,14 @@ function Analysis() {
             })
         });
 
+        getStats();
+
         setComments(comments);
         
         
-        console.log("Se envió a la db")
-        console.log(user)
+        
+        //console.log("Se envió a la db")
+        //console.log(user)
 
         e.target.comments.value = "";
 
@@ -179,7 +237,7 @@ function Analysis() {
     const getInfo = async () => {
         const response = await fetch(`http://localhost:3004/investigations/${user}/${id}`);
         const data = await response.json();
-        console.log("aaaaaaaaaaaaaaaaaaasdasdasdasdassdasdsadasdasdasdasdasdsadsadadss")
+        console.log("getInfo data")
         console.log(data)
         setInvestigation(data)
     }
@@ -229,7 +287,7 @@ function Analysis() {
 
 
 
-      {closed ? "La investigación está cerrada" : 
+      {closed ? <Typography sx={{fontStyle: 'italic'}}>La investigación está cerrada</Typography> : 
       <Box sx={{
           width: "100%",
           display: "flex",
@@ -238,7 +296,13 @@ function Analysis() {
       }}> 
 
         {/*solo visible para el analista*/}
-        {role == "investigador" ? "" : <Button type="submit" variant="outlined"> Validar</Button>}
+        {role == "investigador" 
+        ? "" 
+        : 
+            validated === false ? <Button onClick={validate} type="submit" variant="outlined"> Validar</Button>
+            : "Investigación ya validada"
+            
+                }
         
 
 
@@ -257,8 +321,12 @@ function Analysis() {
 
            
 
+            <Box sx={{display:"flex", 
+                    flexDirection:"row",
+                    boxShadow: 1, 
+                    m:2}}>
                 {comments.comment 
-                ? <Box sx={{color:"red"}}>{comments.comment} </Box> 
+                ? <Box sx={{color:"red", width: "60%", m:1}}>Evaluación del analista: {comments.comment} </Box> 
                 :  
                 role !== "investigador" 
                     ?
@@ -279,39 +347,53 @@ function Analysis() {
                     : ""
                  }
 
+                 {stats ? 
+                    <Box sx={{color: "red", m:1, width: "40%"}}> 
+                        <StyledTypography> Total de elementos buscados: {stats.totalCount} </StyledTypography> 
+                        <StyledTypography> Total de elementos maliciosos detectados: {stats.maliciousCount} </StyledTypography> 
+                        <StyledTypography> Porcentaje de posible amenaza: {stats.percentThreat} </StyledTypography> 
+                        <StyledTypography noWrap> Elemento con peor reputación buscado: {stats.mostVotedMalicious} </StyledTypography> 
+                        <StyledTypography> Cantidad de valuaciones del elemento: {stats.cantMalicious} </StyledTypography> 
+                    
+                    </Box> 
 
+                        : "no hay stats aun"}
+
+            </Box>
                 {/*description()*/}
-                <p>Aca va la descripción</p>
+                <Typography sx={{fontStyle: 'italic'}}>Aca va la descripción</Typography>
          
             
-            <form onSubmit={addCheck}>
+            {closed ? "" : 
+                <form onSubmit={addCheck}>
 
-                <Grid
-                    container
-                    direction="column"
-                    justifyContent="left"
-                    alignItems="center"
-                    spacing={4}
+                    <Grid
+                        container
+                        direction="column"
+                        justifyContent="left"
+                        alignItems="center"
+                        spacing={4}
 
-                >
-                    <Box sx={{ m: 3, display: "flex", flexDirection: "column" }}>
+                    >
+                        <Box sx={{ m: 3, display: "flex", flexDirection: "column" }}>
 
-                        <FormControl sx={{marginTop:2}}>
-                            <InputLabel htmlFor="firstname"> IOC </InputLabel>
-                            <StyledInput type="text" name="ioc" />
-                        </FormControl>
+                            <FormControl sx={{marginTop:2}}>
+                                <InputLabel htmlFor="firstname"> IOC </InputLabel>
+                                <StyledInput type="text" name="ioc" />
+                            </FormControl>
 
-                        <FormControl sx={{marginTop:2}}>
-                            <InputLabel htmlFor="firstname"> Descripción </InputLabel>
-                            <StyledInput type="text" name="description" />
-                        </FormControl>
-                    </Box>
-                    <Typography>{error ? error : ""} </Typography>
-                    <Box>
-                        <Button type="submit" variant="contained" color="primary"> Crear!</Button>
-                    </Box>
-                </Grid>
-            </form>
+                            <FormControl sx={{marginTop:2}}>
+                                <InputLabel htmlFor="firstname"> Descripción </InputLabel>
+                                <StyledInput type="text" name="description" />
+                            </FormControl>
+                        </Box>
+                        <Typography>{error ? error : ""} </Typography>
+                        <Box>
+                            <Button type="submit" variant="contained" color="primary"> Crear!</Button>
+                        </Box>
+                    </Grid>
+                </form>
+            }
             
             
 
