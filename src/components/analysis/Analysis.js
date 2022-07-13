@@ -2,6 +2,7 @@ import Button from '@mui/material/Button';
 import { FormControl, Input, InputLabel, FormHelperText, TextField, Container, Grid, Box, styled, Typography} from '@mui/material';
 import { useState, useEffect, useContext} from "react"
 import Check from "./Check"
+import CheckStatic from "./CheckStatic"
 import {useParams } from 'react-router-dom';
 import UserContext from "../../context/UserContext"
 import Description from "./Description"
@@ -60,13 +61,16 @@ function Analysis() {
     console.log("user es "+ user + " y el id es "+id)
 
 
+    const [previousData, setPreviousData] = useState([]);
 
+    //obtengo todos los analysis de la investigación.
     const fetchApi = async () => {
         const response = await fetch(`http://localhost:3004/analysis/${id}`);
         const data = await response.json();
         console.log(data);
         console.log("esto es dataaaaaaaaaaa")
-        setData(data)
+        //setData(data)
+        setPreviousData(data);
         
     }
     
@@ -95,6 +99,7 @@ function Analysis() {
                 description: description
             }
         ])
+        console.log(data)
     }
 
     const [comments, setComments] = useState("");
@@ -307,14 +312,35 @@ function Analysis() {
                     </Box>
                 </Grid>
             </form>
-            {console.log(data)}
+            
             
 
-            {data ? data.map((dato, i) => {
+{/** <CheckStatic value={dato}/> 
+ *  {previousData ? previousData.map((dato, i) => {
                 
+                return <CheckStatic value={dato}/> 
+            }) : <h2>Cargando...</h2>}
+   */}
+
+{/** <Check key={i} value={dato} />    */}
+                
+            {data ? data.map((dato, i) => {
+                console.log(dato)
+
                 return <Check key={i} value={dato} />
             }) : <h2>Cargando...</h2>}
 
+
+            {previousData ? previousData.map((dato, i) => {
+                
+                return <CheckStatic value={dato}/> 
+            }) : <h2>Cargando...</h2>}
+
+            
+           
+
+
+            
 
         </Container>
 

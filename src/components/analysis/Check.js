@@ -3,7 +3,8 @@ import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import {useState, useEffect} from "react"
 import {Typography} from "@mui/material"
-import {Link} from "react-router-dom"
+import {Link, useParams} from "react-router-dom"
+
 
 
 
@@ -88,10 +89,16 @@ function Check({ value, removeCheck}) {
     }); 
       const data = await response.json();
       setRelated(data)
+    
       console.log(data)
+      console.log("esto es related")
+      console.log(related)
     }
 
 
+    let {id, user} = useParams();
+    console.log("user es "+ user + " y el id es "+id)
+    //
 
     const url = "http://localhost:3004/analysis";
     const body = {
@@ -101,7 +108,7 @@ function Check({ value, removeCheck}) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            id_investigador: 28,
+            id_investigation: id,
             type: tipo(),
             ioc: value.ioc, 
             description: value.description
@@ -115,7 +122,7 @@ function Check({ value, removeCheck}) {
    
     const checkFrom = async () => {
 
-      console.log("checkFrom")
+      
 
       const response = await fetch("http://localhost:3004/analysis/isindb", {
         method: 'POST',
@@ -125,40 +132,37 @@ function Check({ value, removeCheck}) {
           },
           body: JSON.stringify({
             ioc: value.ioc, 
+            description: value.description,
+            id_investigation: id
           })})
-          console.log(response)
+          //console.log(response)
 
           const data = await response.json();
-          console.log("esto es data desde checkFrom")
-          console.log(data)
+
           
 
           if (data !== 400){
-            console.log("entró al if de data")
             setFrom("DB")
-            console.log("data desde DB")
-            console.log(data)
             setAnalysis(data);
           } else {
-            console.log("Entro al else")
+            
             fetchApi();
           }
           
-          //return data;
+          
 
     }
     
     const fetchApi = async () => {
       const response = await fetch(url, body);
       const data = await response.json();
-      console.log("data desde fetchAPI")
-      console.log(data);
       setAnalysis(data);
       
     }
 
     useEffect(async () => {
-        //fetchRelatedObject();
+        setRelated();
+        fetchRelatedObject();
         checkFrom();
         
         
@@ -226,11 +230,13 @@ function Check({ value, removeCheck}) {
 
                   <Box sx={{width: "30%", p:1}}>
                   <Typography sx={{fontWeight: '400', fontSize: "16px", color: "#0b1566"}}> 
-                      Objetos Relacionados </Typography> {related ? related.map(dato => 
-                      <Box sx={{display:"flex", 
-                               margin:0}}><Typography sx={{marginRight: 1}}>{dato.ioc}</Typography> 
-                               <Link to="/test">Add</Link>
-                    </Box>) : ""}
+                      Objetos Relacionados </Typography> 
+                      
+                      {related ? related.map(dato =>
+                          <Box sx={{display:"flex", margin:0}}>
+                                  <Typography sx={{marginRight: 1}}>{dato ? dato : ""}</Typography> 
+                                  <Link to="/test">Add</Link>
+                          </Box>) : "nothing"}
                   </Box>
                   <Box textAlign="right" sx={{alignSelf: 'flex-end'}}>
                         <Button variant="text" color="secondary">
