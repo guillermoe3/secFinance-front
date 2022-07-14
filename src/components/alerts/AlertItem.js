@@ -1,14 +1,23 @@
-import { useState, useEffect } from "react"
+
 import Container from '@mui/material/Container'
 import { Card, CardMedia, CardContent, Typography, Box, CardActions, Button } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import IconButton from '@mui/material/IconButton';
 import {Link} from "react-router-dom"
-
+import {useState, useContext, useEffect} from "react"
+import UserContext from "../../context/UserContext"
 
 
 
 function Alert(props) {
+
+    const {getUser} = useContext(UserContext);
+
+    let user = getUser();
+
+
+
+
     return (
 
         <Container maxWidth="lg">

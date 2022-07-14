@@ -21,6 +21,8 @@ import {useContext} from "react"
 import {UserContextProvider} from "./context/UserContext"
 import UserContext from "./context/UserContext"
 import InvestigationReview from "./components/investigations/InvestigationsReview"
+import ProtectedRoute from "./components/ProtectedRoute"
+import Test from "./components/admin/Test"
 
 
 
@@ -36,24 +38,30 @@ function App() {
                 <Route path="/" element={<Landing component={<Info/>}/>}/>
                 <Route path="/login" element={<Landing component={<Login/>}/>}/>
                 <Route path="/Register" element={<Landing component={<Register/>}/>}/>
+                <Route path="/test" element={<Test/>}/>
                 
-                <Route path="/home" element={<Dashboard component={<Home/>}/>}/>
-                <Route path="/profile" element={<Dashboard component={<Profile/>}/>}/>
-                <Route path="/logout" element={<Landing component={<Info/>}/>}/>
-                <Route path="/business" element={<Dashboard component={<Business/>}/>}/>
-                <Route path="/review" element={<Dashboard component={<InvestigationReview/>}/>}/>
-                <Route path="/investigation" element={<Dashboard component={<InvestigationContainer/>}/>}/>
-                <Route path="/investigation/:user/:id/analysis" element={<Dashboard component={<Analysis/>}/>}/>
-                <Route path="/alerts" element={<Dashboard component={<AlertsContainer/>}/>}/>
-                <Route path="/alerts/:id" element={<Dashboard component={<Alert/>}/>}/>
-                <Route path="/admin/" element={<Dashboard component={<Admin/>}/>}/>
-                <Route path="/admin/alerts" element={<Dashboard component={<AlertsManager/>}/>}/>
-                <Route path="/admin/business" element={<Dashboard component={<BusinessManager/>}/>}/>
-                <Route path="/admin/users" element={<Dashboard component={<UsersManager/>}/>}/>
+                
+                
+                      <Route path="/home" element={<Dashboard component={<ProtectedRoute><Home/></ProtectedRoute>}/>}/>
+                      <Route path="/profile" element={<Dashboard component={<ProtectedRoute><Profile/></ProtectedRoute>}/>}/>
+                      <Route path="/logout" element={<Landing component={<ProtectedRoute><Info/></ProtectedRoute>}/>}/>
+                      <Route path="/business" element={<Dashboard component={<ProtectedRoute><Business/></ProtectedRoute>}/>}/>
+                      <Route path="/review" element={<Dashboard component={<ProtectedRoute><InvestigationReview/></ProtectedRoute>}/>}/>
+                      <Route path="/investigation" element={<Dashboard component={<ProtectedRoute><InvestigationContainer/></ProtectedRoute>}/>}/>
+                      <Route path="/investigation/:user/:id/analysis" element={<Dashboard component={<ProtectedRoute><Analysis/></ProtectedRoute>}/>}/>
+                      <Route path="/alerts" element={<Dashboard component={<ProtectedRoute><AlertsContainer/></ProtectedRoute>}/>}/>
+                      <Route path="/alerts/:id" element={<Dashboard component={<ProtectedRoute><Alert/></ProtectedRoute>}/>}/>
+                      <Route path="/admin/" element={<Dashboard component={<ProtectedRoute><Admin/></ProtectedRoute>}/>}/>
+                      <Route path="/admin/alerts" element={<Dashboard component={<ProtectedRoute><AlertsManager/></ProtectedRoute>}/>}/>
+                      <Route path="/admin/business" element={<Dashboard component={<ProtectedRoute><BusinessManager/></ProtectedRoute>}/>}/>
+                      <Route path="/admin/users" element={<Dashboard component={<ProtectedRoute><UsersManager/></ProtectedRoute>}/>}/>
 
-                <Route path="/admin/bitacora" element={<Dashboard component={<Bitacora/>}/>}/>
+                      <Route path="/admin/bitacora" element={<Dashboard component={<ProtectedRoute><Bitacora/></ProtectedRoute>}/>}/>
+                      
                 
-                <Route path="*" element={<NotFound/>}/>
+
+                
+                <Route path="*" element={<Dashboard component={<NotFound/>}/>}/>
 
             </Routes>
           </BrowserRouter>

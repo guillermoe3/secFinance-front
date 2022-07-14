@@ -1,5 +1,5 @@
 import { useState, useEffect, isValidElement, useContext} from "react"
-import { Typography, Box } from "@mui/material"
+import { Typography, Box, Container } from "@mui/material"
 import MUIDataTable from "mui-datatables";
 import UserContext from "../../context/UserContext"
 import {useNavigate} from "react-router-dom"
@@ -25,12 +25,18 @@ function InvestigationReview() {
         const response = await fetch(url);
         const data = await response.json();
 
+       
         const newData = data.map( (dato) => {
             //console.log(dato);
             dato.link = `investigation/${user.userId}/${dato.id_investigation}`
+            dato.customer = dato.id_user
+            
         });
 
-        setList(data);
+        //setList(data) dato.customer = "asdasd"
+        setList(data)
+
+        console.log(list)
     }
 
     const fetchApiMyReview = async () => {
@@ -80,6 +86,10 @@ function InvestigationReview() {
                 name:"description",
                 label:"Descripción"
             },
+            {
+                name:"customer",
+                label:"Cliente"
+            },
             
             {
                 name:"link",
@@ -89,6 +99,16 @@ function InvestigationReview() {
         ]
 
     return (
+        <Container maxWidth="lg" sx={{
+            marginTop: 1,
+            border: "0.5px solid",
+            padding: "10px",
+            boxShadow: 5,
+            backgroundColor: "white",
+            borderColor: 'grey.200',
+            borderRadius: 3,
+            height: "200vh",
+        }}> 
         <Box>
             <Typography variant="h5" sx={{
                 fontWeight: "bold",
@@ -108,7 +128,8 @@ function InvestigationReview() {
             <Typography variant="h5" sx={{
                 fontWeight: "bold",
                 color: "#202980",
-                marginBottom: 4
+                marginBottom: 4,
+                marginTop: 4
             }}>Mis revisiones</Typography>
 
             <MUIDataTable
@@ -119,6 +140,7 @@ function InvestigationReview() {
                 />
             
         </Box>
+        </Container>
     )
 }
 
