@@ -1,24 +1,51 @@
 import { Box, Container, Typography } from "@mui/material"
-import { useState, useEffect} from "react"
+
 import { Link } from "react-router-dom"
 import InvestigationList from "../investigations/InvestigationList"
 
+import {useState, useContext, useEffect} from "react"
+import UserContext from "../../context/UserContext"
+import {useNavigate} from "react-router-dom"
 
-const users = [{
-    "nombre": "John", "cantidad": "4"
-}, {
-    "nombre": "Marcelo", "cantidad": "3"
-}, {
-    "nombre": "Roberto", "cantidad": "40"
-}, {
-    "nombre": "Enzo", "cantidad": "5"
-}, {
-    "nombre": "Gallardo", "cantidad": "12"
-}]
+
 
 
 function Business() {
-    const [nums, setNums] = useState([1, 2, 3, 4]);
+
+    const {getUser} = useContext(UserContext);
+    let user = getUser();
+
+   
+    
+    const [business, setBusiness] = useState("");
+
+    const getBusinessName = async () => {
+        const response = await fetch(`http://localhost:3004/business/${user.id_business}`);
+        const data = await response.json();
+        //console.log(data)
+        setBusiness(data)
+
+    }
+
+    const [users, setUsers] = useState([]);
+
+    const getUsers = async () => {
+        const response = await fetch(`http://localhost:3004/users/business/${user.id_business}`);
+        const data = await response.json();
+        console.log(data)
+        setUsers(data)
+        
+    }
+
+    useEffect(() => {
+        getBusinessName();
+        getUsers();
+        //console.log(user)
+        console.log(user.id_business)
+        console.log(business)
+    },[])
+
+    
 
     /*                <ul>{users.map((user, i) => 
                             <li key={i}>
@@ -42,7 +69,7 @@ function Business() {
         fontWeight: "bold",
         color: "#202980",
         marginBottom:4
-      }}> Mis compañeros de Empresa</Typography>
+      }}> Mis compañeros de {business ? business[0].name : "mi empresa"}</Typography>
             <Box sx={{
                 width: "40vw",
                 marginBottom: "5vh"
@@ -55,21 +82,24 @@ function Business() {
                     alignItems: 'center', width: "30vw", marginBottom: "5vh"
                 }}>
                     <Typography variant="h6">Nombre</Typography>
-                    <Typography variant="h6" sx={{ marginLeft: 20 }}>Cant. de investigaciones</Typography>
+                    <Typography variant="h6" sx={{ marginLeft: 20 }}>Email</Typography>
                 </Box>
 
-                {users.map((user, i) =>
+                {users ? 
+                    users.map((user) =>
 
-                    <Box sx={{
-                        display: "flex",
-                        justifyContent: 'space-between',
-                        alignItems: 'center', width: "30vw"
-                    }}>
-                        <Typography variant="h5">{users[i].nombre}</Typography>
-                        <Typography variant="h5"><Link to="/">{users[i].cantidad}</Link></Typography>
-                    </Box>
+                        <Box sx={{
+                            display:"flex", 
+                            flexDirection:"row", 
+                            m: 2, 
+                            width: "100%"
+                            
+                        }}>
+                            <Typography sx={{width: "40%",marginRight: 5}}>{user.name}</Typography>
+                            <Typography sx={{}}><Link to="/">{user.email}</Link></Typography>
+                        </Box>
 
-                )}
+                ) : ""}
 
 
             </Box>
@@ -77,7 +107,7 @@ function Business() {
 
 
             <Box>
-                Investigaciones de la empresa
+               
 
                 <InvestigationList />
 

@@ -13,9 +13,17 @@ const StyledInput = styled(Input)({
 });
 
 const StyledTypography = styled(Typography)({
-    fontSize: "12px",
+    fontSize: "14px",
     color: "#202980",
-    fontWeight: '300'
+    fontWeight: '500',
+    width:"80%"
+});
+
+const StyledTypography2 = styled(Typography)({
+    fontSize: "14px",
+    color: "#202980",
+    fontWeight: '300',
+    width: "10%"
 });
 
 function Analysis() {
@@ -337,7 +345,7 @@ function Analysis() {
             backgroundColor: "white", 
             borderColor: 'grey.200',
             borderRadius: 3, 
-            height: "150vh",
+            height: "300vh",
           }}>
             <Typography variant="h4" sx={{
         fontWeight: "bold",
@@ -387,7 +395,7 @@ function Analysis() {
                     boxShadow: 1, 
                     m:2}}>
                 {comments.comment 
-                ? <Box sx={{color:"red", width: "60%", m:1}}>Evaluación del analista: {comments.comment} </Box> 
+                ? <Box sx={{color:"red", width: "60%", m:1,alignItems: 'center'}}>Evaluación del analista: {comments.comment} </Box> 
                 :  
                 role !== "investigador" 
                     ?
@@ -409,11 +417,12 @@ function Analysis() {
                  }
 
                  {stats.totalCount ? 
-                    <Box sx={{color: "red", m:1, width: "40%"}}> 
-                        <StyledTypography> Total de elementos buscados: {stats.totalCount} </StyledTypography> 
-                        <StyledTypography> Total de elementos maliciosos detectados: {stats.maliciousCount} </StyledTypography> 
+                    <Box sx={{color: "red", m:1, width: "40%", marginTop:4, width: "70%"}}> 
+                        
+                        <StyledTypography> Total de elementos buscados: {stats.totalCount} </StyledTypography>
+                        <StyledTypography> Total de elementos maliciosos detectados:  {stats.maliciousCount} </StyledTypography> 
                         <StyledTypography> Porcentaje de posible amenaza: {stats.percentThreat} </StyledTypography> 
-                        <StyledTypography noWrap> Elemento con peor reputación buscado: {stats.mostVotedMalicious} </StyledTypography> 
+                        <StyledTypography noWrap> Elemento con peor reputación buscado: <StyledTypography2> {stats.mostVotedMalicious}</StyledTypography2> </StyledTypography> 
                         <StyledTypography> Cantidad de valuaciones del elemento: {stats.cantMalicious} </StyledTypography> 
                     
                     </Box> 

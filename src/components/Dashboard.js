@@ -327,7 +327,7 @@ function DashboardContent({ component }) {
                         color: "#4154FF",
                         marginLeft:1,
                       }}>
-                      Analyst2
+                      Analyst
                       </Typography>
                       <List sx={{
                         backgroundColor: "#262629",

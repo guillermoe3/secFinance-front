@@ -13,7 +13,7 @@ function AlertsContainer () {
                 backgroundColor: "white", 
                 borderColor: 'grey.200',
                 borderRadius: 3, 
-                height: "100%"
+                height: "200vh"
             }}>
                 <Typography variant="h4" sx={{
                 fontWeight: "bold",
