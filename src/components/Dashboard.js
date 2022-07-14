@@ -93,7 +93,7 @@ function DashboardContent({ component }) {
   //User Menu
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const settings = [
-  <Link to="/profile">Profile</Link>,
+  
   <Link to="/logout">Logout</Link>];
 
   const handleOpenUserMenu = (event) => {
@@ -245,8 +245,9 @@ function DashboardContent({ component }) {
             >
               
              
-              <MenuItem component={Link} to="/profile" onClick={handleCloseUserMenu}>
-                   Profile
+                <MenuItem  onClick={handleCloseUserMenu}>
+                     <Link to="/profile">Profile</Link> 
+                  
                 </MenuItem>
                 
 
@@ -287,42 +288,55 @@ function DashboardContent({ component }) {
           </Toolbar>
 
           <Divider />
-          <Typography
-            component="h5"
-            variant="h6"
-            sx={{
-              backgroundColor: "#262629",
-              color: "#4154FF",
-              marginLeft:1,
-            }}
-          >
-            User
-          </Typography>
-          <List sx={{
-            backgroundColor: "#262629",
-            color: "#4154FF"
-          }}>{mainListItems}</List>
-          <Divider />
 
-          {role !== "investigador" ? 
-          <div>
-              <Typography 
-              component="h5"
-              variant="h6"
-              sx={{
-                backgroundColor: "#262629",
-                color: "#4154FF",
-                marginLeft:1,
-              }}>
-              Analyst
+          {
+          ((role == "analista") || (role == "admin") || (role == "investigador"))
+          
+          ? 
+
+            <div>
+              <Typography
+                component="h5"
+                variant="h6"
+                sx={{
+                  backgroundColor: "#262629",
+                  color: "#4154FF",
+                  marginLeft:1,
+                }}
+              >
+                User
               </Typography>
               <List sx={{
                 backgroundColor: "#262629",
                 color: "#4154FF"
-              }}>{analystListItems}</List>
+              }}>{mainListItems}</List>
               <Divider />
-              </div>
-              : null}
+            </div>
+            : ""}
+
+          
+          {((role == "analista") || (role == "admin"))
+          
+                ? 
+                  <div>
+                      <Typography 
+                      component="h5"
+                      variant="h6"
+                      sx={{
+                        backgroundColor: "#262629",
+                        color: "#4154FF",
+                        marginLeft:1,
+                      }}>
+                      Analyst2
+                      </Typography>
+                      <List sx={{
+                        backgroundColor: "#262629",
+                        color: "#4154FF"
+                      }}>{analystListItems}</List>
+                      <Divider />
+                      </div>
+
+                  : ""}
 
           {console.log(role)}
           {role == "admin" ? 

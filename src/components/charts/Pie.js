@@ -8,14 +8,11 @@ import {
 import { Animation } from '@devexpress/dx-react-chart';
 
 const data = [
-  { country: 'Russia', area: 12 },
-  { country: 'Canada', area: 7 },
-  { country: 'USA', area: 7 },
-  { country: 'China', area: 7 },
-  { country: 'Brazil', area: 6 },
-  { country: 'Australia', area: 5 },
-  { country: 'India', area: 2 },
-  { country: 'Others', area: 55 },
+  { type: 'Malicious', cant: 20 },
+  { type: 'Suscipicious', cant: 10 },
+  { type: 'Harmless', cant: 14 },
+  { type: 'No detected', cant: 1 },
+
 ];
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -35,11 +32,11 @@ export default class Demo extends React.PureComponent {
           data={chartData}
         >
           <PieSeries
-            valueField="area"
-            argumentField="country"
+            valueField="cant"
+            argumentField="type"
           />
           <Title
-            text="Area of Countries"
+            text="Detalle de criticidad de detección"
           />
           <Animation />
         </Chart>

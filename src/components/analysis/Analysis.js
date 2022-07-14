@@ -138,21 +138,80 @@ function Analysis() {
     },[])
     
 
+    //#region "data validation"
+
+
+    const tipo = (ioc) => {
+        
+        if (isValidIP(ioc) == true){ 
+          return "ip"
+        } else {
+          if (isValidUrl(ioc) == true){
+            return "url"
+  
+          } else if (isValidDomain(ioc) == true) {
+            return "domain"
+          } else if (isValidHash(ioc) == true){
+            return "hash"
+          } else return "error"
+          
+        }
+      }
+
+      function isValidIP(ipaddress) {  
+        if (/^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipaddress)) {  
+          return (true)  
+        }   
+        return (false) } 
+      
+
+        function isValidDomain(domain) {  
+          if (/^(?:(?:(?:[a-zA-z\-]+)\:\/{1,3})?(?:[a-zA-Z0-9])(?:[a-zA-Z0-9\-\.]){1,61}(?:\.[a-zA-Z]{2,})+|\[(?:(?:(?:[a-fA-F0-9]){1,4})(?::(?:[a-fA-F0-9]){1,4}){7}|::1|::)\]|(?:(?:[0-9]{1,3})(?:\.[0-9]{1,3}){3}))(?:\:[0-9]{1,5})?$/.test(domain)) {  
+            return (true)  
+          }   
+          return (false) } 
+  
+         
+          function isValidUrl(url) {  
+            if (/^(http|https)?:\/\/?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g.test(url)) {  
+              return (true)  
+            }   
+            return (false) }
+  
+            function isValidHash(hash) {  
+              if (/^[a-f0-9]{64}$/gi.test(hash)) {  
+                return (true)  
+              }   
+              return (false) }
+
+
+    ////#endregion
+
+
     
     const addCheck = e => {
         e.preventDefault();
-        setError("no hay errores");
+        setError("");
         
         let ioc = e.target.ioc.value;
         let description = e.target.description.value;
-        setData([
-            ...data,
-            {
-                ioc: ioc,
-                description: description
-            }
-        ])
-        console.log(data)
+
+        if (tipo(ioc) == "error"){ 
+            setError("El IOC ingresado es invalido. Intente nuevamente.");
+        } else {
+
+            setData([
+                ...data,
+                {
+                    ioc: ioc,
+                    description: description
+                }
+            ])
+            console.log("esto es data de addCheck")
+            console.log(data)
+
+        }
+        
     }
 
     const [comments, setComments] = useState("");
@@ -187,6 +246,8 @@ function Analysis() {
         });
 
         getStats();
+        console.log("sendComments")
+        console.log(stats)
 
         setComments(comments);
         
@@ -347,7 +408,7 @@ function Analysis() {
                     : ""
                  }
 
-                 {stats ? 
+                 {stats.totalCount ? 
                     <Box sx={{color: "red", m:1, width: "40%"}}> 
                         <StyledTypography> Total de elementos buscados: {stats.totalCount} </StyledTypography> 
                         <StyledTypography> Total de elementos maliciosos detectados: {stats.maliciousCount} </StyledTypography> 
@@ -357,11 +418,11 @@ function Analysis() {
                     
                     </Box> 
 
-                        : "no hay stats aun"}
+                        : ""}
 
             </Box>
                 {/*description()*/}
-                <Typography sx={{fontStyle: 'italic'}}>Aca va la descripción</Typography>
+                <Typography sx={{fontStyle: 'italic'}}>Descripción de la investigación</Typography>
          
             
             {closed ? "" : 
@@ -387,7 +448,7 @@ function Analysis() {
                                 <StyledInput type="text" name="description" />
                             </FormControl>
                         </Box>
-                        <Typography>{error ? error : ""} </Typography>
+                        <Typography sx={{color:"red", fontSize: "12px", m:3}}>{error ? error : ""} </Typography>
                         <Box>
                             <Button type="submit" variant="contained" color="primary"> Crear!</Button>
                         </Box>

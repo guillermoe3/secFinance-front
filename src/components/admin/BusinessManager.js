@@ -87,10 +87,7 @@ function BusinessManager() {
             height: "100%",
         }}>
 
-                {business.map((dato) => {
-                <p>{dato.name}</p>
-                }
-                )}
+                
 
                
 
@@ -134,6 +131,19 @@ function BusinessManager() {
                     color: "#202980", marginBottom: 2
                 }}>
                     Listado de Empresas</Typography>
+
+
+                    {business ? 
+                
+                business.map((dato) => 
+                <Box sx={{display:"flex", flexDirection: "row"}}> 
+                    <Typography sx={{marginRight: 3}}> {dato.id_business} </Typography>
+                    <Typography sx={{fontSize:"18px", }}>{dato.name} </Typography>
+                    
+                </Box>
+                
+                
+                ): ""}
 
            
             

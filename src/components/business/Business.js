@@ -1,5 +1,5 @@
 import { Box, Container, Typography } from "@mui/material"
-import { useState } from "react"
+import { useState, useEffect} from "react"
 import { Link } from "react-router-dom"
 import InvestigationList from "../investigations/InvestigationList"
 
@@ -42,7 +42,7 @@ function Business() {
         fontWeight: "bold",
         color: "#202980",
         marginBottom:4
-      }}> Mis compañeros</Typography>
+      }}> Mis compañeros de Empresa</Typography>
             <Box sx={{
                 width: "40vw",
                 marginBottom: "5vh"

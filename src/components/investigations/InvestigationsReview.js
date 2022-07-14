@@ -25,11 +25,12 @@ function InvestigationReview() {
         const response = await fetch(url);
         const data = await response.json();
 
-       
+       //dato.customer = dato.id_user
         const newData = data.map( (dato) => {
-            //console.log(dato);
+           
             dato.link = `investigation/${user.userId}/${dato.id_investigation}`
-            dato.customer = dato.id_user
+            
+            console.log(dato);
             
         });
 
@@ -46,8 +47,9 @@ function InvestigationReview() {
         const data = await response.json();
 
         const newData = data.map( (dato) => {
-            //console.log(dato);
+            
             dato.link = `investigation/${user.userId}/${dato.id_investigation}`
+           
         });
 
         setMyreviews(data);
@@ -72,7 +74,10 @@ function InvestigationReview() {
 
             }
         
-
+/*{
+                name:"customer",
+                label:"Cliente"
+            }, */
         const columns = [
             {
                 name:"id_investigation",
@@ -86,10 +91,7 @@ function InvestigationReview() {
                 name:"description",
                 label:"Descripción"
             },
-            {
-                name:"customer",
-                label:"Cliente"
-            },
+            
             
             {
                 name:"link",

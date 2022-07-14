@@ -152,10 +152,15 @@ function Check({ value, removeCheck}) {
           
 
     }
+
+    const [error, setError] = useState("");
     
     const fetchApi = async () => {
       const response = await fetch(url, body);
       const data = await response.json();
+      if(data == "400"){
+        setError("Ha ocurrido en el error en la busqueda. Intente nuevamente. ")
+      }
       setAnalysis(data);
       
     }
@@ -225,6 +230,7 @@ function Check({ value, removeCheck}) {
                           <Box> No detectado: {analysis.result.undetected} </Box>
                         </Box>
                     : "Cargando..."}
+                    {error ? <Typography>{error}</Typography> : ""}
                       </Box>
                   </Box>
 

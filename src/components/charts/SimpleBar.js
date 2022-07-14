@@ -20,13 +20,12 @@ const data2 = [
 ];
 
 const data = [
-  { analista: 'Analista1', cantidad: 2.525 },
-  { analista: 'Analista2', cantidad: 3.018 },
-  { analista: 'Analista3', cantidad: 3.682 },
-  { analista: 'Analista4', cantidad: 4.440 },
-  { analista: 'Analista5', cantidad: 5.310 },
-  { analista: 'Analista6', cantidad: 6.127 },
-  { analista: 'Analista7', cantidad: 6.930 },
+  { analista: 'Banco Macro', cantidad: 94 },
+  { analista: 'Banco Galicia', cantidad: 54 },
+  { analista: 'Ualá', cantidad: 72 },
+  { analista: 'Ripio', cantidad: 55 },
+  { analista: 'BCRA', cantidad: 80 },
+  
 ];
 
 export default class Demo extends React.PureComponent {
@@ -53,7 +52,7 @@ export default class Demo extends React.PureComponent {
             valueField="cantidad"
             argumentField="analista"
           />
-          <Title text="Cantidad de investigaciones por analistas" />
+          <Title text="Cantidad de investigaciones por Empresa" />
           <Animation />
         </Chart>
       </Paper>
