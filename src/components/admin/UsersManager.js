@@ -39,16 +39,103 @@ function UsersManager() {
     useEffect(
         () => {
             getUsers();
+            getBusiness();
+            console.log(business)
         },[])
 
 
-    const [business, setBusiness] = useState('');
+    const [business, setBusiness] = useState([]);
 
-    const handleChange = (event) => {
-        setBusiness(event.target.value);
-      };
+    const getBusiness = async () => {
+
+        const response = await fetch("http://localhost:3004/business")
+        const data = await response.json();
+        console.log(data)
+       //const array = data.values();
+        setBusiness(data);
+    }
+
+
+
+      const manageUser = async (e) => {
+        e.preventDefault();
+          
+          //si esta activo, desactivarlo. Caso contrario, activarlo. 
+
+          console.log(e.target.id_user.value)
+          console.log(e.target.id_business.value)
+
+          //traer estado actual
+
+          if (e.target.id_user.value){
+
+          
+          const response = await fetch(`http://localhost:3004/user/status/${e.target.id_user.value}`);
+          const state = await response.json();
+
+          console.log(state)
+
+          if(state == true){
+              //body para false
+
+              const response = await fetch(`http://localhost:3004/user/${e.target.id_user.value}`, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    active: 0,
+                  })
+            })
+            const data = await response.json();
+            console.log(data)
+          } else {
+                  //body para true
+                  const response = await fetch(`http://localhost:3004/user/${e.target.id_user.value}`, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    active: 1,
+                  })
+            })
+            const data = await response.json();
+            console.log(data)
+              
+          }
+
+        }
+
+         
+
+          //si id_business tiene algo, enviar el dato para cambiarlo
+
+
+            /*
+          const response = await fetch("asd", {
+
+          })
+          const data = await response.json();
+
+          console.log(data)*/
+
+          
+
+
+      }
+
 
       /*
+            const [age, setAge] = useState("0")
+
+      const handleChange = async (e) => {
+          //setBusiness(event.target.value);
+          console.log(e.target.age.value)
+          console.log()
+      }
       
                         <Box sx={{ minWidth: 120 }}>
                         <FormControl fullWidth>
@@ -69,6 +156,35 @@ function UsersManager() {
 
       
       <Button variant="outlined" color="secondary">Asignar A</Button>
+
+
+
+
+                            <Box sx={{ minWidth: 120 }}>
+                                    
+                                    <InputLabel id="inputLabelbusiness">Business</InputLabel>
+                                    <FormControl sx={{width:"500px"}}>
+                                        
+                                    
+                                        <Select
+                                        labelId="inputLabelbusiness"
+                                        id="selectbusiness"
+                                        value={age}
+                                        label="Business"
+                                        name="age"
+                                        onChange={handleChange}
+                                        >
+
+                                        {business ? 
+                                        business.map( (bus, i) =>
+                                            <MenuItem value={bus.name}>{bus.name}</MenuItem> ) 
+                                        : "No hay elementos cargados"}
+                                        
+                                        </Select>
+                                    </FormControl>
+
+                                </Box>
+
       */
   
 
@@ -81,7 +197,7 @@ function UsersManager() {
             backgroundColor: "white",
             borderColor: 'grey.200',
             borderRadius: 3,
-            height: "100%",
+            height: "150vh",
         }}>
 
 
@@ -95,25 +211,24 @@ function UsersManager() {
             <Box sx={{ width: "100%" }}>
 
             <Box sx={{ display: 'flex', flexDirection: 'row', width: "100%", justifyContent: 'space-between' }}>
-                <Typography sx={{width: "25%"}}>Email</Typography>
-                <Typography > Nombre</Typography>
-                <Typography>Empresa ID</Typography>
-                <Typography sx={{m:1}}></Typography>
-                <Typography></Typography>
+                <Typography sx={{width: "5%"}} variant="h6">ID</Typography>
+                <Typography sx={{width: "25%"}} variant="h6">Email</Typography>
+                <Typography sx={{width: "20px"}}variant="h6"> Nombre</Typography>
+                <Typography variant="h6">Empresa ID</Typography>
+                <Typography variant="h6" sx={{m:1}}></Typography>
+                <Typography variant="h6">Activo?</Typography>
             </Box>
+            <Box sx={{marginBottom: 4}}>
                 {users ? 
                     users.map((user, i) =>
 
                         <Box key={i} sx={{ display: 'flex', flexDirection: 'row', width: "100%", justifyContent: 'space-between' }}>
-                            <Typography sx={{width: "35%"}} variant="h6"> {user.email}</Typography>
-                            <Typography sx={{width: "15%"}} variant="h6"> {user.name}</Typography>
-                            <Typography variant="h6"> {user.id_business} </Typography>
-                            <Typography variant="h6"> {user.active} </Typography>
+                            <Typography sx={{width: "4px"}}> {user.id_usuario}</Typography>
+                            <Typography sx={{width: "20%"}} > {user.email}</Typography>
+                            <Typography sx={{width: "15%"}} > {user.name}</Typography>
+                            <Typography> {user.id_business} </Typography>
+                            <Typography> {user.active ? "Activo" : "Desactivado"} </Typography>
 
-                            <Box >
-                                <Button sx={{ m: 1 }} variant="outlined" color="secondary"> {user.active == '1' ? "Disable" : "Active" } </Button>
-                                
-                            </Box>
 
 
                         </Box>
@@ -122,10 +237,54 @@ function UsersManager() {
 
                     ) : ""}
 
+            </Box>
+
+            <Box sx={{marginBottom:3}}>
+
+            <Typography variant="h4" sx={{
+                    fontWeight: "bold",
+                    color: "#202980", marginBottom: 2
+                }}>
+                    Listado de Empresas</Typography>
+
+                <Box sx={{display:"flex", flexDirection:"row"}}>
+                    <Typography sx={{marginRight: "30px"}}> ID</Typography>
+                    <Typography> Nombre</Typography>
+                </Box>
+
+                    {business ? 
+                
+                business.map((dato) => 
+                <Box sx={{display:"flex", flexDirection: "row"}}> 
+                    <Typography sx={{marginRight: 3}}> {dato.id_business} </Typography>
+                    <Typography sx={{fontSize:"18px", }}>{dato.name} </Typography>
+                    
+                </Box>
+                
+                
+                ): ""}
+
+            </Box>
+                <Box>
+                    <form onSubmit={manageUser}>
+                        <Typography variant="h6"> Ingrese ID del usuario</Typography>
+                            <FormControl>
+                                <Input id="id_user" type="text" name="id_user"/>
+                            </FormControl>
+
+                            <Typography variant="h6"> Ingrese ID de la empresa para asignar</Typography>
+                            <FormControl>
+                                <Input id="id_business" type="text" name="id_business"/>
+                            </FormControl>
+                            {/* Listado con las empresas con valor por defecto a la empresa que ya tiene asignado*/ }
+                            <br/>
+                            <Button sx={{ m: 1 }} type="submit" variant="outlined" color="secondary"> Cambiar estado</Button> 
 
 
+                    </form>
+                    
 
-
+                </Box>
             </Box>
 
 

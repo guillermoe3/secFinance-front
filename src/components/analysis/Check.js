@@ -158,10 +158,22 @@ function Check({ value, removeCheck}) {
     const fetchApi = async () => {
       const response = await fetch(url, body);
       const data = await response.json();
+      console.log("Esto es data de setError")
+      console.log(data)
       if(data == "400"){
-        setError("Ha ocurrido en el error en la busqueda. Intente nuevamente. ")
+        setError("IOC no encontrado. Intente nuevamente con otro. ")
+        setAnalysis({
+          result: {
+            harmless: 0,
+            malicious: 0,
+            suspicious: 0,
+            undetected:0,
+          }
+        })
+      } else {
+        setAnalysis(data);
       }
-      setAnalysis(data);
+      
       
     }
 
@@ -197,7 +209,7 @@ function Check({ value, removeCheck}) {
                   </Box>
                   <Box sx={{width: "20%"}}>
                     <Box sx={{p:1}}><Typography sx={{fontWeight: '400', fontSize: "16px", color: "#0b1566"}}> Resultados </Typography> 
-                    
+                    {error ? <Typography sx={{fontSize:"12px", color:"red"}}>{error}</Typography> : ""}
                     {analysis ? 
 
                         <Box> 
@@ -230,7 +242,7 @@ function Check({ value, removeCheck}) {
                           <Box> No detectado: {analysis.result.undetected} </Box>
                         </Box>
                     : "Cargando..."}
-                    {error ? <Typography>{error}</Typography> : ""}
+                    
                       </Box>
                   </Box>
 
