@@ -47,7 +47,7 @@ function Alert(props) {
                 <CardActions>
                 
                     <Button size="small"> 
-                        <Link to={`/alerts/1`} style={{textDecoration:"none"}}> Leer más </Link>
+                        <Link to={`/alerts/${props.idAlert}`} style={{textDecoration:"none"}}> Leer más </Link>
                     </Button>
                     <IconButton aria-label="add to favorites">
                         <FavoriteIcon />

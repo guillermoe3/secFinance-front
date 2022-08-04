@@ -44,7 +44,7 @@ function AlertList (){
                 list.map ((dato) => 
                 
 
-                <AlertItem category={dato.category} risk={dato.severity} title={dato.titulo} resume="Descripción de la alerta" body1={dato.body1} body2={dato.body2} />
+                <AlertItem idAlert={dato.id_alerta} category={dato.category} risk={dato.severity} title={dato.titulo} resume="Descripción de la alerta" body1={dato.body1} body2={dato.body2} />
                 
                 )
                 : ""
