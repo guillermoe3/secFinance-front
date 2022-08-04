@@ -82,34 +82,31 @@ function Home() {
                     
                 </Box>
                 
+                <Typography variant="h6" sx={{
+                    fontWeight: "bold",
+                    color: "#202980",
+                    marginBottom:4
+                }}> Cantidad eventos por Riesgo</Typography>
                 <Box  display="flex"
                         justifyContent="center"
                         alignItems="center" sx={{marginBottom:7}}>
 
                 {/*labels={["Google", "Bing", "Otro", "Otro2"]} data2={[74,10,50,20]}*/}
+
+                
                 <PieChart labels={typesPie} data2={valuesPie}/>
                 
                     
                 </Box>
 
-               
 
-               
-
-
-                
-                
+                <Typography variant="h6" sx={{
+                    fontWeight: "bold",
+                    color: "#202980",
+                    marginBottom:4
+                }}> Cantidad eventos por Analista</Typography>
 
                 <BarChart labels={usersBar} data2={cantBar}/>
-                
-                
-               
-
-
-
-
-                
-
 
             </Container>
 

@@ -129,13 +129,15 @@ function UsersManager() {
 
       
 
+      const [statusBusiness, setStatusBusiness] = useState("");
+
       const manageBusiness = async (e) => {
         e.preventDefault();
 
         if (e.target.id_user.value  &&  e.target.id_business.value){
 
 
-            console.log("ejecuté")
+           
 
             const response = await fetch(`http://localhost:3004/user/${e.target.id_user.value}`, {
                 method: 'PUT',
@@ -147,12 +149,50 @@ function UsersManager() {
                     id_business: e.target.id_business.value,
                   })
             })
+            setStatusBusiness("Cambiado ok");
+            console.log(statusBusiness)
             const data = await response.json();
-            
-            
-            
+ 
         }
       }
+
+      const [checkValue, setCheckValue] = useState("");
+
+      const getValue = (e, checked) => {
+
+        console.log(e.target.value)
+        setCheckValue(e.target.value)
+        //console.log(checked)
+
+      }
+
+
+      const manageRol = async (e) => {
+        e.preventDefault();
+
+        console.log(checkValue)
+        if (checkValue){
+
+            const response = await fetch(`http://localhost:3004/user/${e.target.id_user.value}`, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    role: checkValue,
+                  })
+            })
+
+        }
+
+        //cuando el usuario le da clic, enviar un fetch en update con el nuevo campo de rol. 
+
+ 
+        
+      }
+    
+    
 
 
   
@@ -274,11 +314,86 @@ function UsersManager() {
                                 <br/>
                                 <Button sx={{ m: 1 }} type="submit" variant="outlined" color="secondary"> Cambiar Empresa</Button> 
 
+                                {statusBusiness ? 
+                                <Typography sx={{color: "red"}}> {statusBusiness} </Typography> : ""}
+
 
                         </form>
                         
 
                     </Box>
+
+                    <Box sx={{margin: 5}}>
+                        <form onSubmit={manageRol}>
+                            <Typography variant="h6"> Ingrese ID del usuario</Typography>
+                                <FormControl>
+                                    <Input id="id_user" type="text" name="id_user"/>
+                                </FormControl>
+
+                        <Box sx={{display:"flex", flexDirection:"column"}}>  
+                                <FormControlLabel
+                                    label= "Admin"
+                                    control={
+                                        <Checkbox
+                                            value="admin"
+                                            onChange={(e, checked) => getValue(e, checked)}
+                                            color="secondary"
+                                        />
+                                        }
+                                />
+
+                                <FormControlLabel
+                                    label= "Analista"
+                                    control={
+                                        <Checkbox
+                                            value="analista"
+                                            onChange={(e, checked) => getValue(e, checked)}
+                                            color="secondary"
+                                        />
+                                        }
+                                />
+
+                                <FormControlLabel
+                                    label= "Investigador"
+                                    control={
+                                        <Checkbox
+                                            value="analista"
+                                            onChange={(e, checked) => getValue(e, checked)}
+                                            color="secondary"
+                                        />
+                                        }
+                                />
+
+                                <FormControlLabel
+                                    label= "Unassigned"
+                                    control={
+                                        <Checkbox
+                                            value="unassigned"
+                                            onChange={(e, checked) => getValue(e, checked)}
+                                            color="secondary"
+                                        />
+                                        }
+                                />
+
+                                </Box>
+
+
+
+
+                                <br/>
+                                <Button sx={{ m: 1 }} type="submit" variant="outlined" color="secondary"> Cambiar Rol</Button> 
+
+                                
+
+
+                        </form>
+                        
+
+                    </Box>
+
+
+
+                   
 
 
                 </Box>
