@@ -127,65 +127,34 @@ function UsersManager() {
 
       }
 
+      
 
-      /*
-            const [age, setAge] = useState("0")
+      const manageBusiness = async (e) => {
+        e.preventDefault();
 
-      const handleChange = async (e) => {
-          //setBusiness(event.target.value);
-          console.log(e.target.age.value)
-          console.log()
+        if (e.target.id_user.value  &&  e.target.id_business.value){
+
+
+            console.log("ejecuté")
+
+            const response = await fetch(`http://localhost:3004/user/${e.target.id_user.value}`, {
+                method: 'PUT',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    id_business: e.target.id_business.value,
+                  })
+            })
+            const data = await response.json();
+            
+            
+            
+        }
       }
-      
-                        <Box sx={{ minWidth: 120 }}>
-                        <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">Business</InputLabel>
-                            <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={business}
-                            label="Business"
-                            onChange={handleChange}
-                            >
-                            <MenuItem value={10}>Banco Galicia</MenuItem>
-                            <MenuItem value={20}>Banco Macro</MenuItem>
-                            <MenuItem value={30}>Uala</MenuItem>
-                            </Select>
-                        </FormControl>
-                        </Box>
-
-      
-      <Button variant="outlined" color="secondary">Asignar A</Button>
 
 
-
-
-                            <Box sx={{ minWidth: 120 }}>
-                                    
-                                    <InputLabel id="inputLabelbusiness">Business</InputLabel>
-                                    <FormControl sx={{width:"500px"}}>
-                                        
-                                    
-                                        <Select
-                                        labelId="inputLabelbusiness"
-                                        id="selectbusiness"
-                                        value={age}
-                                        label="Business"
-                                        name="age"
-                                        onChange={handleChange}
-                                        >
-
-                                        {business ? 
-                                        business.map( (bus, i) =>
-                                            <MenuItem value={bus.name}>{bus.name}</MenuItem> ) 
-                                        : "No hay elementos cargados"}
-                                        
-                                        </Select>
-                                    </FormControl>
-
-                                </Box>
-
-      */
   
 
     return (
@@ -241,7 +210,7 @@ function UsersManager() {
 
             <Box sx={{marginBottom:3}}>
 
-            <Typography variant="h4" sx={{
+            <Typography variant="h5" sx={{
                     fontWeight: "bold",
                     color: "#202980", marginBottom: 2
                 }}>
@@ -265,26 +234,57 @@ function UsersManager() {
                 ): ""}
 
             </Box>
-                <Box>
-                    <form onSubmit={manageUser}>
-                        <Typography variant="h6"> Ingrese ID del usuario</Typography>
-                            <FormControl>
-                                <Input id="id_user" type="text" name="id_user"/>
-                            </FormControl>
 
-                            <Typography variant="h6"> Ingrese ID de la empresa para asignar</Typography>
-                            <FormControl>
-                                <Input id="id_business" type="text" name="id_business"/>
-                            </FormControl>
-                            {/* Listado con las empresas con valor por defecto a la empresa que ya tiene asignado*/ }
-                            <br/>
-                            <Button sx={{ m: 1 }} type="submit" variant="outlined" color="secondary"> Cambiar estado</Button> 
+            <Box sx={{display: "flex", flexDirection: "row"}}>
+                    <Box sx={{margin: 5}}>
+                        <form onSubmit={manageUser}>
+                            <Typography variant="h6"> Ingrese ID del usuario</Typography>
+                                <FormControl>
+                                    <Input id="id_user" type="text" name="id_user"/>
+                                </FormControl>
+
+                                {/** 
+                                <Typography variant="h6"> Ingrese ID de la empresa para asignar</Typography>
+                                <FormControl>
+                                    <Input id="id_business" type="text" name="id_business"/>
+                                </FormControl>
+                                */}
+                                {/* Listado con las empresas con valor por defecto a la empresa que ya tiene asignado*/ }
+                                <br/>
+                                <Button sx={{ m: 1 }} type="submit" variant="outlined" color="secondary"> Cambiar estado</Button> 
 
 
-                    </form>
-                    
+                        </form>
+                        
+
+                    </Box>
+
+                    <Box sx={{margin: 5}}>
+                        <form onSubmit={manageBusiness}>
+                            <Typography variant="h6"> Ingrese ID del usuario</Typography>
+                                <FormControl>
+                                    <Input id="id_user" type="text" name="id_user"/>
+                                </FormControl>
+
+                                <Typography variant="h6"> Ingrese ID de la empresa para asignar</Typography>
+                                <FormControl>
+                                    <Input id="id_business" type="text" name="id_business"/>
+                                </FormControl>
+                                {/* Listado con las empresas con valor por defecto a la empresa que ya tiene asignado*/ }
+                                <br/>
+                                <Button sx={{ m: 1 }} type="submit" variant="outlined" color="secondary"> Cambiar Empresa</Button> 
+
+
+                        </form>
+                        
+
+                    </Box>
+
 
                 </Box>
+
+
+
             </Box>
 
 

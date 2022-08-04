@@ -6,6 +6,7 @@ import Container from '@mui/material/Container'
 import {Box, Typography} from '@mui/material/'
 import Chart1 from "../charts/Chart1"
 import BarChart from "../charts/BarChart"
+import PieChart from "../charts/PieChart"
 import {useEffect, useState} from "react"
 
 
@@ -28,12 +29,26 @@ function Home() {
 
       }
 
+      const [typesPie, setTypesPie] = useState([]);
+
+      const [valuesPie, setValuesPie] = useState([]);
+  
+      const getInfoPie = async () => {
+          const response = await fetch("http://localhost:3004/analysis/piechart"); 
+          const data = await response.json();
+  
+          setTypesPie(data.labels)
+          setValuesPie(data.data) 
+  
+        }
+
 
 
 
     useEffect(async () => {
 
         getInfoBar();
+        getInfoPie();
         
     },[])
    
@@ -50,7 +65,7 @@ function Home() {
             borderColor: 'grey.200',
             borderRadius: 3, 
             marginBottom: "10vh",
-            height: "100vh"
+            height: "150vh"
           }}>
 
             
@@ -67,15 +82,22 @@ function Home() {
                     
                 </Box>
                 
-                <Box sx={{m: 2}}>
+                <Box  display="flex"
+                        justifyContent="center"
+                        alignItems="center" sx={{marginBottom:7}}>
 
-                   
+                {/*labels={["Google", "Bing", "Otro", "Otro2"]} data2={[74,10,50,20]}*/}
+                <PieChart labels={typesPie} data2={valuesPie}/>
+                
                     
                 </Box>
 
                
 
-                {/*labels={["USA", "Mexico", "Arg", "Uru", "5to"]} data2={[322, 70, 48, 2]}*/}
+               
+
+
+                
                 
 
                 <BarChart labels={usersBar} data2={cantBar}/>
