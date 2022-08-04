@@ -4,24 +4,39 @@ import SimpleBar2 from "../charts/SimpleBar2"
 import Pie from "../charts/Pie"
 import Container from '@mui/material/Container'
 import {Box, Typography} from '@mui/material/'
+import Chart1 from "../charts/Chart1"
+import BarChart from "../charts/BarChart"
+import {useEffect, useState} from "react"
 
 
 //<Container maxWidth="md" sx={{marginBottom: "10vh"}}>
 function Home() {
 
 
-    const data = [
-        { analista: 'Analista1', cantidad: 2.525 },
-        { analista: 'Analista2', cantidad: 3.018 },
-        { analista: 'Analista3', cantidad: 3.682 },
-        { analista: 'Analista4', cantidad: 4.440 },
-        { analista: 'Analista5', cantidad: 5.310 },
-        { analista: 'Analista6', cantidad: 6.127 },
-        { analista: 'Analista7', cantidad: 6.930 },
-      ];
+
+
+    const [usersBar, setUsersBar] = useState([]);
+
+    const [cantBar, setCantBar] = useState([]);
+
+    const getInfoBar = async () => {
+        const response = await fetch("http://localhost:3004/investigations/barChart"); 
+        const data = await response.json();
+
+        setCantBar(data.cant)
+        setUsersBar(data.users2) 
+
+      }
 
 
 
+
+    useEffect(async () => {
+
+        getInfoBar();
+        
+    },[])
+   
 
     return (
 
@@ -34,7 +49,8 @@ function Home() {
             backgroundColor: "white", 
             borderColor: 'grey.200',
             borderRadius: 3, 
-            marginBottom: "10vh"
+            marginBottom: "10vh",
+            height: "100vh"
           }}>
 
             
@@ -48,12 +64,24 @@ function Home() {
                 <Box sx={{m: 2}}>
                     
                     
-                    <SimpleBar/>
+                    
                 </Box>
                 
                 <Box sx={{m: 2}}>
-                    <Pie/>
+
+                   
+                    
                 </Box>
+
+               
+
+                {/*labels={["USA", "Mexico", "Arg", "Uru", "5to"]} data2={[322, 70, 48, 2]}*/}
+                
+
+                <BarChart labels={usersBar} data2={cantBar}/>
+                
+                
+               
 
 
 
